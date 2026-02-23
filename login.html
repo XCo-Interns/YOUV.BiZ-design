@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BizGroww</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#F0F4F8',
+                            100: '#D9E6F2',
+                            200: '#B3CCE5',
+                            300: '#8DB3D9',
+                            400: '#6799CC',
+                            500: '#4180BF',
+                            600: '#0a2540', /* Brand Navy */
+                            700: '#163D6E',
+                            800: '#112D52',
+                            900: '#0a2540',
+                            950: '#06101F',
+                        },
+                        primary: {
+                            DEFAULT: '#22a28a', /* Brand Teal */
+                            50: '#F0F4F8',
+                            100: '#D9E6F2',
+                            200: '#B3CCE5',
+                            300: '#8DB3D9',
+                            400: '#6799CC',
+                            500: '#4180BF',
+                            600: '#0a2540',
+                            700: '#163D6E',
+                            800: '#112D52',
+                            900: '#0a2540',
+                            foreground: '#FFFFFF',
+                        },
+                        accent: {
+                            DEFAULT: '#22a28a',
+                            light: '#D9E6F2',
+                            dark: '#163D6E',
+                        },
+                        background: '#FFFFFF',
+                        foreground: '#0C1E37',
+                        muted: {
+                            DEFAULT: '#F0F4F8',
+                            foreground: '#6B7280',
+                        },
+                        border: '#D9E6F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Barlow', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ========== OPTIMIZED ANIMATIONS ========== */
+
+        /* Smooth Animated Gradient Background */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(135deg, #0a2540 0%, #163D6E 50%, #0a2540 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            will-change: background-position;
+        }
+
+        /* Optimized Floating Shapes Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(3deg);
+            }
+        }
+
+        @keyframes floatReverse {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(25px) rotate(-3deg);
+            }
+        }
+
+        @keyframes floatSlow {
+
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) translateX(10px) rotate(2deg);
+            }
+        }
+
+        /* .float-1 {
+            animation: float 8s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .float-2 {
+            animation: floatReverse 10s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .float-3 {
+            animation: floatSlow 12s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        /* Smooth Tab Content Animation */
+        .tab-content {
+            display: none;
+            opacity: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Tab Button Transitions */
+        .tab-btn {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #6B7280;
+            background: #FFFFFF;
+            border: 2px solid #E5E7EB;
+            min-width: 110px;
+            white-space: normal;
+            padding: 12px;
+        }
+
+        .tabs-container {
+            gap: 16px;
+        }
+
+        .tab-btn:hover {
+            background: #F0F4F8;
+            color: #22a28a;
+            border-color: #22a28a;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #22a28a;
+            box-shadow: 0 4px 12px rgba(34, 162, 138, 0.15);
+            border-color: #22a28a;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active i {
+            color: #22a28a;
+        }
+
+        .tab-btn.active p {
+            color: #0a2540;
+        }
+
+        .tab-btn.active p.text-gray-500 {
+            color: #6B7280;
+        }
+
+        /* Tab button press effect */
+        .tab-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(34, 162, 138, 0.1);
+        }
+
+        /* Glass Morphism Effect with smooth transition */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Smooth Input Focus Animation */
+        .enhanced-input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #FFFFFF;
+        }
+
+        .enhanced-input:focus {
+            border-color: #22a28a;
+            box-shadow: 0 0 0 3px rgba(34, 162, 138, 0.15);
+            background: #FFFFFF;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        /* Optimized Button Gradient with Shine Effect */
+        .btn-gradient {
+            background: #22a28a;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-gradient:hover {
+            background: #26C6A9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(34, 162, 138, 0.35);
+        }
+
+        .btn-gradient:active {
+            transform: translateY(-1px);
+        }
+
+        /* Smooth Checkbox Animation */
+        .custom-checkbox {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #D1D5DB;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-checkbox:hover {
+            border-color: #22a28a;
+            transform: scale(1.05);
+        }
+
+        .custom-checkbox:checked {
+            background: #22a28a;
+            border-color: #22a28a;
+            transform: scale(1.1);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            animation: checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes checkPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Smooth Navbar Transitions */
+        :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --accent-blue: #00d4ff;
+            --white: #ffffff;
+            --text-main: #3c4257;
+            --text-muted: #6b7280;
+            --bg-body: #0a2540;
+            --card-shadow: 0 10px 30px rgba(10, 37, 64, .08);
+            --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .navbar {
+            background: #0a2540;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(30, 58, 138, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-top {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0f3b63 100%);
+            padding: 10px 0;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .navbar-top-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .navbar-top-right a {
+            transition: var(--transition);
+        }
+
+        .navbar-top-right a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-top-content {
+            width: 100%;
+            max-width: 1200px;
+            font-size: 12px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .navbar-top-left {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-top-left a {
+            transition: var(--transition);
+        }
+
+        .navbar-top-left a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            color: white;
+        }
+
+        .navbar-inner img {
+            transition: var(--transition);
+        }
+
+        .navbar-inner img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Desktop menu */
+        .menu {
+            display: flex;
+            gap: 24px;
+        }
+
+        .menu a {
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 0;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .menu a:hover::after {
+            width: 100%;
+        }
+
+        .menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* hamburger */
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .hamburger:hover {
+            color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.15);
+            transform: scale(1.1);
+        }
+
+        .hamburger:active {
+            transform: scale(0.95);
+        }
+
+        /* Tablet - 768px to 1023px */
+        @media(max-width: 1023px) {
+            .hamburger {
+                display: block;
+                order: 3;
+                margin-left: 30px;
+            }
+
+            #navRight {
+                order: 2;
+            }
+
+            /* mobile menu dropdown */
+            .menu {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+                background: #0a2540;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+                z-index: 999;
+            }
+
+            .menu.show {
+                max-height: 600px;
+            }
+
+            .navbar-top-content {
+                font-size: 8px;
+                padding: 0 10px;
+            }
+
+            .navbar-top-right a {
+                font-size: 9px;
+            }
+        }
+
+        /* Smooth Info Box Hover */
+        .info-box {
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.02), rgba(34, 162, 138, 0.05));
+            border: 1px solid rgba(34, 162, 138, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(34, 162, 138, 0.1);
+            border-color: rgba(34, 162, 138, 0.3);
+        }
+
+        /* Smooth Password Toggle Animation */
+        .password-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .password-toggle:hover {
+            color: #22a28a;
+            transform: scale(1.15);
+        }
+
+        .password-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* buttons */
+        .btn-login {
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            color: white !important;
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+            background: none !important;
+            border-color: transparent !important;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+            box-shadow: 0 12px 28px rgba(34, 162, 138, .35);
+        }
+
+        .btn-account,
+        .btn-logout {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+            margin-left: 8px;
+        }
+
+        .btn-account:hover,
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+            box-shadow: 0 12px 28px rgba(34, 162, 138, .35);
+        }
+
+        /* Optimized Decorative Circles */
+        .circle-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            transition: opacity 0.4s ease;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #22a28a, #0a2540);
+            top: -100px;
+            right: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #0a2540, #22a28a);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #22a28a, #163D6E);
+            top: 50%;
+            right: 10%;
+        }
+
+        /* Smooth Page Load Animation */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .page-container {
+            animation: pageLoad 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* ================== FOOTER ================== */
+        footer {
+            background: #051421;
+            color: #fff;
+            padding: 48px 20px 24px;
+            margin-top: 60px;
+        }
+
+        footer .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        footer .footer-section img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 16px;
+        }
+
+        footer .footer-section p {
+            font-size: 14px;
+            color: #D1D5DB;
+            margin-bottom: 16px;
+        }
+
+        footer .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        footer .social-links a {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+        }
+
+        footer h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        footer .footer-bottom p {
+            text-align: center;
+            font-size: 12px;
+            color: #9CA3AF;
+            margin: 0;
+        }
+
+        /* Footer Link Animations */
+        /*
+        .footer-section a {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-section a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #FFFFFF;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-section a:hover::before {
+            width: 100%;
+        }
+
+        .footer-section a:hover {
+            color: #FFFFFF;
+            transform: translateX(4px);
+        }
+        */
+        /* Social Links Smooth Animation */
+        .social-links a {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #FFFFFF, #E5E7EB);
+            color: #0a1628;
+            transform: translateY(-4px) rotate(5deg);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3);
+        }
+
+        .social-links a:active {
+            transform: translateY(-2px) rotate(2deg);
+        }
+
+
+
+        /* Footer gradient animation */
+        footer {
+            background: #051421;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FFFFFF, transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Icon fade-in animations */
+        @keyframes iconFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        [data-lucide] {
+            animation: iconFadeIn 0.3s ease-out;
+        }
+
+        /* ========== ENHANCED RESPONSIVE DESIGN ========== */
+
+        /* Mobile First Approach - Extra Small (320px - 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .navbar {
+                padding: 8px 12px;
+            }
+
+            .navbar img {
+                height: 36px;
+            }
+
+            h1 {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            h2 {
+                font-size: 20px;
+                line-height: 1.3;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            h4 {
+                font-size: 16px;
+            }
+
+            .tab-btn {
+                padding: 12px 8px;
+                gap: 6px;
+            }
+
+            .tab-btn i {
+                width: 18px;
+                height: 18px;
+            }
+
+            .tab-btn p {
+                font-size: 11px;
+            }
+
+            .tab-btn p.text-xs {
+                font-size: 9px;
+            }
+
+            .info-box {
+                padding: 12px;
+            }
+
+            .info-box p {
+                font-size: 12px;
+            }
+
+            .enhanced-input {
+                height: 44px;
+                font-size: 16px;
+            }
+
+            .btn-gradient {
+                height: 44px;
+                font-size: 14px;
+            }
+
+            footer {
+                padding: 32px 12px 16px;
+            }
+        }
+
+        /* Mobile (481px - 640px) */
+        @media (min-width: 481px) and (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 20px;
+            }
+
+            h4 {
+                font-size: 18px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px;
+            }
+        }
+
+        /* Tablet Portrait (641px - 768px) */
+        @media (min-width: 641px) and (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 0 24px;
+            }
+
+            .visual-panel {
+                display: none;
+            }
+
+            .tab-btn {
+                padding: 16px 12px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+
+        /* Tablet Landscape (769px - 1023px) */
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .container {
+                max-width: 720px;
+                padding: 0 24px;
+            }
+
+            .visual-panel {
+                display: none;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 30px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+        }
+
+        /* Desktop Small (1024px - 1279px) */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .container {
+                max-width: 960px;
+                padding: 0 32px;
+            }
+
+            .visual-panel {
+                display: flex !important;
+            }
+        }
+
+        /* Desktop Medium (1280px - 1439px) */
+        @media (min-width: 1280px) and (max-width: 1439px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 40px;
+            }
+        }
+
+        /* Desktop Large (1440px and above) */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+                padding: 0 40px;
+            }
+        }
+
+
+
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Touch-friendly buttons */
+        @media (hover: none) and (pointer: coarse) {
+
+            button,
+            .btn,
+            a.btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .mobile-menu::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        /* Responsive navbar adjustments */
+
+
+        /* Responsive Grid for Login */
+        @media (max-width: 1023px) {
+            .page-container .grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media(min-width: 1440px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+
+        @media(max-width: 1439px) and (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        @media(max-width: 1199px) and (min-width: 1024px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .navbar-top-content {
+                padding: 0 20px;
+            }
+        }
+
+        /* Responsive Page Padding for Fixed Navbar */
+        .page-container {
+            padding-top: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding-top: 170px;
+            }
+        }
+
+
+        /* @media (max-width: 768px) {
+            .page-container {
+                padding-top: 120px;
+                min-height: auto;
+            }
+        }*/
+
+        /* Fix for Hero Section Height */
+        .page-container>.grid {
+            min-height: calc(100vh - 130px);
+        }
+
+        @media (max-width: 768px) {
+            .page-container>.grid {
+                min-height: calc(100vh - 120px);
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .page-container>.grid {
+                min-height: auto;
+            }
+        }
+
+        /* Responsive Padding */
+        @media (max-width: 640px) {
+            .p-6 {
+                padding: 16px !important;
+            }
+
+            .p-8 {
+                padding: 20px !important;
+            }
+
+            .px-6 {
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+
+            .px-8 {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+
+            .py-4 {
+                padding-top: 12px !important;
+                padding-bottom: 12px !important;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Footer Responsive */
+        @media (max-width: 640px) {
+            footer>div>div {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
+            footer img {
+                height: 32px !important;
+            }
+
+            .social-links {
+                justify-content: center !important;
+            }
+
+            footer>div>div:last-child {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Performance optimizations */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .post-btn {
+            padding: 14px 20px !important;
+            /* smaller height */
+            margin-left: 10px;
+            /* move right */
+            font-size: 13px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-top">
+            <div class="navbar-top-content">
+                <div class="navbar-top-left">
+                    <span style="color: #22a28a;">📞 Support: +91 98765 43210</span>
+                    <span style="color: #fff;">📍Pan India Network</span>
+                    <span><a href="About.html" style="color: #fff; padding: 10px;">About</a></span>
+                    <span><a href="Contact.html" style="color: #fff; padding: 10px;">Contact</a></span>
+                </div>
+                <div class="navbar-top-right">
+                    <a href="register.html" style="color: #fff;">Grow on YouVBiZ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container navbar-inner">
+            <a href="index.html"><img src="Media/Logo.png" height="42" alt="YouVBiZ Logo"></a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <div class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="register.html">Manufacturers</a>
+                <a href="register.html">Distributors</a>
+                <a href="register.html">Retailers</a>
+                <a href="careers.html">Job Opening</a>
+                <a href="register.html">Opportunity</a>
+
+                <div id="mobileAuth"></div>
+            </div>
+
+            <div class="nav-right" id="navRight">
+                <button id="loginBtn" class="btn-login" onclick="window.location.href='login.html'">🔐 Login</button>
+                <button id="accountBtn" class="btn-account" style="display:none;">👤 Account</button>
+                <button id="logoutBtn" class="btn-logout" style="display:none;">Logout</button>
+                <button class="btn-primary post-btn" id="postRequirementBtn"
+                    onclick="window.location.href='register.html'">Post
+                    Requirement</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 relative">
+        <div class="page-container w-full">
+            <div class="grid lg:grid-cols-2">
+
+                <!-- Left Visual Panel (Hidden on Mobile & Tablet) -->
+                <div
+                    class="visual-panel hidden lg:flex animated-gradient relative overflow-hidden items-center justify-center p-12">
+                    <!-- Floating Decorative Shapes -->
+                    <div class="absolute inset-0 overflow-hidden">
+                        <div class="circle-decoration circle-1 float-1"></div>
+                        <div class="circle-decoration circle-2 float-2"></div>
+                        <div class="circle-decoration circle-3 float-3"></div>
+                    </div>
+
+                    <div class="relative z-10 text-white max-w-md">
+                        <div class="mb-8">
+                            <div
+                                class="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center mb-6 float-1">
+                                <i data-lucide="building-2" class="w-10 h-10"></i>
+                            </div>
+                            <h2 class="text-5xl font-bold mb-4 font-display leading-tight">Welcome to BizGroww</h2>
+                            <p class="text-xl text-blue-100 leading-relaxed">Sign in to access your dashboard and
+                                connect with the B2B industry</p>
+                        </div>
+
+                        <div class="space-y-4 mt-12">
+                            <div class="flex items-start gap-4 glass rounded-xl p-4 float-2">
+                                <div
+                                    class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Connect Nationwide</h4>
+                                    <p class="text-blue-100 text-sm">Join thousands of businesses across India</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 glass rounded-xl p-4 float-1">
+                                <div
+                                    class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Grow Your Business</h4>
+                                    <p class="text-blue-100 text-sm">Access new markets and opportunities</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 glass rounded-xl p-4 float-3">
+                                <div
+                                    class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Secure Platform</h4>
+                                    <p class="text-blue-100 text-sm">Your data is protected with us</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Panel -->
+                <div class="p-6 sm:p-8 lg:p-12 bg-white relative">
+                    <div class="w-full max-w-2x1 space-y-8">
+
+                        <!-- Mobile Header (Visible on Mobile Only) -->
+                        <div class="text-center space-y-3 lg:hidden">
+                            <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 font-display">
+                                Welcome to BizGroww
+                            </h1>
+                            <p class="text-base text-gray-600">
+                                Sign in to access your dashboard and connect with the B2B industry
+                            </p>
+                        </div>
+
+                        <!-- Tabs Section -->
+                        <div class="bg-white rounded-2xl border border-gray-200 shadow-2xl overflow-hidden">
+
+                            <!-- Tabs Navigation -->
+                            <div class="tabs-container grid grid-cols-1 md:grid-cols-3 gap-2 p-3 bg-gray-50">
+                                <button onclick="switchTab('manufacturer')" id="tab-manufacturer"
+                                    class="tab-btn active flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300">
+                                    <i data-lucide="factory" class="w-6 h-6"></i>
+                                    <div class="text-center">
+                                        <p class="font-bold text-xs sm:text-sm block">Manufacturer/<br>Importer</p>
+                                        <p class="text-xs text-gray-500 block mt-1">(Looking for Distributors)</p>
+                                    </div>
+                                </button>
+
+                                <button onclick="switchTab('distributor')" id="tab-distributor"
+                                    class="tab-btn flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300">
+                                    <i data-lucide="truck" class="w-6 h-6"></i>
+                                    <div class="text-center">
+                                        <p class="font-bold text-xs sm:text-sm block">Distributor/<br>Wholesaler</p>
+                                        <p class="text-xs text-gray-500 block mt-1">(Looking for Manufacturer)</p>
+                                    </div>
+                                </button>
+
+                                <button onclick="switchTab('retailer')" id="tab-retailer"
+                                    class="tab-btn flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300">
+                                    <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                                    <div class="text-center">
+                                        <p class="font-bold text-xs sm:text-sm">Retailers</p>
+                                        <p class="text-xs text-gray-500">(Aspiring to be Wholesalers)</p>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <!-- Tab Content -->
+                            <div class="p-6 sm:p-8">
+                                <!-- Manufacturer Tab -->
+                                <div id="content-manufacturer" class="tab-content active space-y-6">
+                                    <div class="info-box rounded-xl p-4">
+                                        <div class="flex gap-3">
+                                            <i data-lucide="info"
+                                                class="w-5 h-5 text-navy-600 flex-shrink-0 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-semibold text-navy-900 text-sm">For Manufacturers &
+                                                    Importers</p>
+                                                <p class="text-navy-700 text-sm mt-1">Connect with distributors across
+                                                    India and expand your market reach.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form class="space-y-5" onsubmit="loginUser(event,'manufacturer')">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-gray-700">Email Address</label>
+                                            <div class="relative">
+                                                <i data-lucide="mail"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="email" placeholder="name@company.com"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                            </div>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm font-medium text-gray-700">Password</label>
+                                                <a href="#"
+                                                    class="text-xs text-navy-600 hover:text-navy-700 font-medium transition-colors">Forgot
+                                                    Password?</a>
+                                            </div>
+                                            <div class="relative">
+                                                <i data-lucide="lock"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="password" id="password-manufacturer" placeholder="••••••••"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 pr-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                                <button type="button" onclick="togglePassword('password-manufacturer')"
+                                                    class="password-toggle absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center space-x-2">
+                                            <input type="checkbox" id="remember-manufacturer" class="custom-checkbox" />
+                                            <label for="remember-manufacturer"
+                                                class="text-sm text-gray-600 cursor-pointer select-none">Remember
+                                                me</label>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="btn-gradient w-full h-12 rounded-xl font-bold text-base shadow-lg text-white flex items-center justify-center gap-2">
+                                            <i data-lucide="log-in" class="w-5 h-5"></i> Sign In
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Distributor Tab -->
+                                <div id="content-distributor" class="tab-content space-y-6">
+                                    <div class="info-box rounded-xl p-4">
+                                        <div class="flex gap-3">
+                                            <i data-lucide="info"
+                                                class="w-5 h-5 text-navy-600 flex-shrink-0 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-semibold text-navy-900 text-sm">For Distributors &
+                                                    Wholesalers</p>
+                                                <p class="text-navy-700 text-sm mt-1">Find quality plywood suppliers and
+                                                    manage your wholesale business efficiently.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form class="space-y-5" onsubmit="loginUser(event,'distributor')">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-gray-700">Email Address</label>
+                                            <div class="relative">
+                                                <i data-lucide="mail"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="email" placeholder="name@company.com"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                            </div>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm font-medium text-gray-700">Password</label>
+                                                <a href="#"
+                                                    class="text-xs text-navy-600 hover:text-navy-700 font-medium transition-colors">Forgot
+                                                    Password?</a>
+                                            </div>
+                                            <div class="relative">
+                                                <i data-lucide="lock"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="password" id="password-distributor" placeholder="••••••••"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 pr-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                                <button type="button" onclick="togglePassword('password-distributor')"
+                                                    class="password-toggle absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center space-x-2">
+                                            <input type="checkbox" id="remember-distributor" class="custom-checkbox" />
+                                            <label for="remember-distributor"
+                                                class="text-sm text-gray-600 cursor-pointer select-none">Remember
+                                                me</label>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="btn-gradient w-full h-12 rounded-xl font-bold text-base shadow-lg text-white flex items-center justify-center gap-2">
+                                            <i data-lucide="log-in" class="w-5 h-5"></i> Sign In
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Retailer Tab -->
+                                <div id="content-retailer" class="tab-content space-y-6">
+                                    <div class="info-box rounded-xl p-4">
+                                        <div class="flex gap-3">
+                                            <i data-lucide="info"
+                                                class="w-5 h-5 text-navy-600 flex-shrink-0 mt-0.5"></i>
+                                            <div>
+                                                <p class="font-semibold text-navy-900 text-sm">For Retailers Aspiring to
+                                                    be Wholesalers</p>
+                                                <p class="text-navy-700 text-sm mt-1">Grow from retail to wholesale and
+                                                    source quality plywood directly from manufacturers.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form class="space-y-5" onsubmit="loginUser(event,'retailer')">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-gray-700">Email Address</label>
+                                            <div class="relative">
+                                                <i data-lucide="mail"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="email" placeholder="name@company.com"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                            </div>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm font-medium text-gray-700">Password</label>
+                                                <a href="#"
+                                                    class="text-xs text-navy-600 hover:text-navy-700 font-medium transition-colors">Forgot
+                                                    Password?</a>
+                                            </div>
+                                            <div class="relative">
+                                                <i data-lucide="lock"
+                                                    class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                                <input type="password" id="password-retailer" placeholder="••••••••"
+                                                    class="enhanced-input flex h-12 w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3 py-2 pl-11 pr-11 text-sm placeholder:text-gray-400 transition-all duration-300" />
+                                                <button type="button" onclick="togglePassword('password-retailer')"
+                                                    class="password-toggle absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center space-x-2">
+                                            <input type="checkbox" id="remember-retailer" class="custom-checkbox" />
+                                            <label for="remember-retailer"
+                                                class="text-sm text-gray-600 cursor-pointer select-none">Remember
+                                                me</label>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="btn-gradient w-full h-12 rounded-xl font-bold text-base shadow-lg text-white flex items-center justify-center gap-2">
+                                            <i data-lucide="log-in" class="w-5 h-5"></i> Sign In
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Sign Up Link -->
+                            <div
+                                class="px-6 sm:px-8 py-4 bg-gradient-to-r from-navy-50 to-blue-50 border-t border-gray-200 text-center text-sm text-gray-600">
+                                Don't have an account?
+                                <a href="register.html"
+                                    class="text-navy-600 hover:text-navy-700 font-semibold transition-colors">Sign up
+                                    here</a>
+                            </div>
+                        </div>
+
+                        <!-- Additional Info -->
+                        <div class="text-center text-xs text-gray-400">
+                            &copy; 2025 BizGroww. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- About -->
+                <div class="footer-section">
+                    <img src="Media/Logo.png" alt="YouVBiZLogo">
+                    <p>B2B Marketplace connecting manufacturers, distributors, and retailers across India.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="Blog.html">Blog</a></li>
+                        <li><a href="Careers.html">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210">📞 +91 98765 43210</a></li>
+                        <li><a href="mailto:support@youvbiz.com">support@youvbiz.com</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 YouVBiZ. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect with throttling for performance
+        let ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    const navbar = document.getElementById('navbar');
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Password Toggle Function
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const icon = passwordInput.nextElementSibling.querySelector('i');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                passwordInput.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+
+        // Tab Switching Function with smooth transitions
+        function switchTab(role) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            document.getElementById('tab-' + role).classList.add('active');
+            document.getElementById('content-' + role).classList.add('active');
+
+            // Reinitialize icons for the new content
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+
+        // ================= NAVBAR FUNCTIONS TO MATCH INDEX.HTML =================
+        const menu = document.getElementById("menu");
+        const hamburger = document.getElementById("hamburger");
+        const mobileAuth = document.getElementById("mobileAuth");
+        const navRight = document.getElementById("navRight");
+        const loginBtn = document.getElementById("loginBtn");
+        const accountBtn = document.getElementById("accountBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const postRequirementBtn = document.getElementById("postRequirementBtn");
+
+        // Hamburger Menu Toggle
+        if (hamburger) {
+            hamburger.addEventListener("click", () => {
+                menu.classList.toggle("show");
+            });
+        }
+
+        // Move Auth Buttons on Resize (Responsiveness)
+        function moveAuthButtons() {
+            if (window.innerWidth <= 1023) {
+                // move to mobile menu
+                if (loginBtn && !mobileAuth.contains(loginBtn)) mobileAuth.appendChild(loginBtn);
+                if (accountBtn && !mobileAuth.contains(accountBtn)) mobileAuth.appendChild(accountBtn);
+                if (logoutBtn && !mobileAuth.contains(logoutBtn)) mobileAuth.appendChild(logoutBtn);
+                if (postRequirementBtn && !mobileAuth.contains(postRequirementBtn)) mobileAuth.appendChild(postRequirementBtn);
+
+                // Show buttons if they should be visible
+                if (loginBtn) {
+                    loginBtn.style.display = "block";
+                    loginBtn.style.width = "100%";
+                    loginBtn.style.marginBottom = "10px";
+                    loginBtn.style.textAlign = "center";
+                }
+                if (postRequirementBtn) {
+                    postRequirementBtn.style.display = "block";
+                    postRequirementBtn.style.width = "100%";
+                    postRequirementBtn.style.marginBottom = "10px";
+                }
+
+            } else {
+                // move back to desktop nav
+                if (loginBtn && !navRight.contains(loginBtn)) navRight.prepend(loginBtn);
+                if (accountBtn && !navRight.contains(accountBtn)) navRight.appendChild(accountBtn);
+                if (logoutBtn && !navRight.contains(logoutBtn)) navRight.appendChild(logoutBtn);
+                if (postRequirementBtn && !navRight.contains(postRequirementBtn)) navRight.appendChild(postRequirementBtn);
+
+                if (loginBtn) {
+                    loginBtn.style.display = "inline-block";
+                    loginBtn.style.width = "auto";
+                    loginBtn.style.marginBottom = "0";
+                }
+
+                if (postRequirementBtn) {
+                    postRequirementBtn.style.display = "inline-block";
+                    postRequirementBtn.style.width = "auto";
+                    postRequirementBtn.style.marginBottom = "0";
+                }
+
+                menu.classList.remove("show");
+            }
+        }
+
+        window.addEventListener("load", moveAuthButtons);
+        window.addEventListener("resize", moveAuthButtons);
+
+
+        function loginUser(e, role) {
+            e.preventDefault();
+
+            // save role
+            localStorage.setItem("role", role);
+
+            // go to home page
+            window.location.href = "index.html";
+        }
+
+    </script>
+
+</body>
+
+</html>
