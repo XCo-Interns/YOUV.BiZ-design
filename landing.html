@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouVBiZ- B2B Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #03133e;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e40af;
+            --secondary: #60a5fa;
+            --accent: #93c5fd;
+            --navy-50: #f0f9ff;
+            --navy-100: #e0f2fe;
+            --navy-200: #bae6fd;
+            --navy-300: #7dd3fc;
+            --navy-400: #38bdf8;
+            --navy-500: #0ea5e9;
+            --navy-600: #0284c7;
+            --navy-700: #0369a1;
+            --navy-800: #0a2540;
+            --navy-900: #0c4a6e;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #03133e;
+            color: #fff;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(30, 58, 138, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 8px 40px rgba(30, 58, 138, 0.15);
+        }
+
+        .navbar-top {
+            background: #0a2540;
+            color: white;
+            padding: 10px 0;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-top {
+                display: block;
+            }
+        }
+
+        .navbar-top-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: white;
+            font-weight: 500;
+
+        }
+
+        .navbar-top-left,
+        .navbar-top-right {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .navbar-top-right a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .navbar-top-left a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-top-left a:hover {
+            border-bottom: 2px solid white;
+        }
+
+
+        .navbar-top-right a:hover {
+            border-bottom-color: white;
+        }
+
+        .navbar-main {
+            width: 100%;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .navbar-logo {
+            display: flex;
+            align-items: left;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .navbar-logo img {
+            height: 45px;
+            width: auto;
+            margin-left: 0;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-logo img {
+                height: 52px;
+            }
+        }
+
+        .navbar-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-menu {
+            display: none;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
+        }
+
+        @media (min-width: 1024px) {
+            .navbar-menu {
+                display: flex;
+            }
+        }
+
+        .navbar-menu a {
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-menu a:hover,
+        .navbar-menu a.active {
+            color: white;
+        }
+
+        .navbar-menu a:hover::after,
+        .navbar-menu a.active::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-actions {
+                gap: 12px;
+            }
+        }
+
+        .btn-login {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--navy-200);
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .btn-login {
+                color: white;
+                display: flex;
+            }
+        }
+
+        .btn-login:hover {
+            background: var(--navy-50);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-primary {
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            .btn-primary {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(30, 58, 138, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+            background: transparent;
+            border: none;
+        }
+
+        .mobile-menu-toggle span {
+            width: 24px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-links a {
+            padding: 16px;
+            background: var(--navy-50);
+            border-radius: 12px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: var(--navy-50);
+            color: white;
+        }
+
+        .mobile-menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .mobile-menu-buttons .btn-login,
+        .mobile-menu-buttons .btn-primary {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('Media/Banner6.jpeg') center/cover no-repeat;
+            padding: 60px 20px;
+            text-align: left;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 100px 40px;
+            }
+
+            .hero-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero {
+                padding: 120px 40px;
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 56px;
+            }
+        }
+
+        .hero-highlight {
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 16px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        @media (min-width: 768px) {
+            .hero p {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero p {
+                font-size: 20px;
+            }
+        }
+
+        /* Ready to Grow Section */
+        .ready-grow {
+            padding: 60px 20px;
+            background: #03133e;
+            color: white;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .ready-grow {
+                padding: 80px 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .ready-grow {
+                padding: 100px 40px;
+            }
+        }
+
+        .ready-grow h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .ready-grow h2 {
+                font-size: 42px;
+            }
+        }
+
+        .ready-grow>p {
+            font-size: 16px;
+            color: white;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        @media (min-width: 768px) {
+            .ready-grow>p {
+                font-size: 18px;
+                margin-bottom: 60px;
+            }
+        }
+
+        /* Role Cards */
+        .role-cards-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .role-cards-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .role-cards-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .role-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(30, 58, 138, 0.08);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .role-card {
+                padding: 40px;
+            }
+        }
+
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(30, 58, 138, 0.15);
+            border-color: var(--primary);
+        }
+
+        .role-card.manufacturer {
+            background: linear-gradient(145deg, #ffffff 0%, var(--navy-50) 100%);
+        }
+
+        .role-card.distributor {
+            background: linear-gradient(145deg, #ffffff 0%, var(--navy-50) 100%);
+        }
+
+        .role-card.retailer {
+            background: linear-gradient(145deg, #ffffff 0%, var(--navy-50) 100%);
+        }
+
+        .role-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        @media (min-width: 768px) {
+            .role-icon {
+                font-size: 56px;
+            }
+        }
+
+        .role-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .role-card h3 {
+                font-size: 24px;
+            }
+        }
+
+        .role-card .subtitle {
+            font-size: 14px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .role-card>p:last-of-type {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .role-card>p:last-of-type {
+                font-size: 15px;
+            }
+        }
+
+        .role-card button {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .role-card button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
+        }
+
+        /* ================== FOOTER ================== */
+        footer {
+            background: #051421;
+            color: #fff;
+            padding: 48px 20px 24px;
+            margin-top: 60px;
+        }
+
+        footer .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        footer .footer-section img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 16px;
+        }
+
+        footer .footer-section p {
+            font-size: 14px;
+            color: #D1D5DB;
+            margin-bottom: 16px;
+        }
+
+        footer .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        footer .social-links a {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+        }
+
+        footer h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        footer .footer-bottom p {
+            text-align: center;
+            font-size: 12px;
+            color: #9CA3AF;
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .role-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .role-card:nth-child(1) .role-icon {
+            animation-delay: 0s;
+        }
+
+        .role-card:nth-child(2) .role-icon {
+            animation-delay: 0.5s;
+        }
+
+        .role-card:nth-child(3) .role-icon {
+            animation-delay: 1s;
+        }
+
+        /* ========== ENHANCED RESPONSIVE DESIGN ========== */
+        /* Mobile First Approach */
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 28px !important;
+            }
+
+            h2 {
+                font-size: 24px !important;
+            }
+
+            h3 {
+                font-size: 20px !important;
+            }
+
+            h4 {
+                font-size: 18px !important;
+            }
+
+            .btn-login {
+                color: black;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 20px !important;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        /* Tablet (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                max-width: 720px;
+                padding: 0 24px;
+            }
+
+            h1 {
+                font-size: 36px !important;
+            }
+
+            h2 {
+                font-size: 30px !important;
+            }
+
+            h3 {
+                font-size: 24px !important;
+            }
+        }
+
+        /* Desktop (1024px and above) */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1280px;
+                padding: 0 40px;
+            }
+        }
+
+        /* Large Desktop (1440px and above) */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+
+        /* Mobile Menu Enhancements */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            transform: translateX(0);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 8px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-links a {
+            padding: 16px 20px;
+            background: var(--navy-50);
+            border-radius: 12px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: white;
+            color: #0a2540;
+            transform: translateX(8px);
+        }
+
+        .mobile-menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .mobile-menu-buttons .btn-login,
+        .mobile-menu-buttons .btn-primary {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Mobile Toggle Button */
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            width: 44px;
+            height: 44px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-toggle {
+                display: none !important;
+            }
+
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Touch-friendly buttons */
+        @media (hover: none) and (pointer: coarse) {
+
+            button,
+            .btn,
+            a.btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .mobile-menu::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        * {
+            max-width: 100%;
+        }
+
+        /* Responsive navbar adjustments */
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 767px) {
+
+            .navbar-actions .btn-login,
+            .navbar-actions .btn-primary {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+
+        }
+
+        @media (min-width: 768px) {
+            .navbar-actions {
+                gap: 12px;
+            }
+        }
+    </style>
+
+
+    <!-- Lucide Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.396.0/umd/lucide.min.js"></script>
+</head>
+
+<body>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">&times;</button>
+        <div class="mobile-menu-links">
+            <a href="landing.html" class="active">Home</a>
+            <a href="register.html">Manufacturers</a>
+            <a href="register.html">Distributors</a>
+            <a href="register.html">Retailers</a>
+            <a href="About.html">About</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+        <div class="mobile-menu-buttons">
+            <button class="btn-login" onclick="window.location.href='login.html'"><i data-lucide="lock"
+                    style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Login</button>
+            <button class="btn-primary" onclick="handlePostRequirement()">Post Requirement</button>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-top">
+            <div class="navbar-top-content">
+                <div class="navbar-top-left">
+                    <span style="color: #fff;">📞 Support: +91 98765 43210</span>
+                    <span style="color: #fff;">📍Pan India Network</span>
+                    <span><a href="About.html" style="color: #fff; padding: 10px;">About</a></span>
+                    <span><a href="Contact.html" style="color: #fff; padding: 10px;">Contact</a></span>
+
+                </div>
+                <div class="navbar-top-right">
+                    <a href="register.html">Grow on YouVBiZ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar-main">
+            <div class="navbar-logo">
+                <img src="Media/logo.png" alt="YouVBiZLogo" />
+            </div>
+
+            <div class="navbar-menu " style="color: white;">
+                <a href="landing.html" class="active">Home</a>
+                <a href="login.html">Manufacturers</a>
+                <a href="login.html">Distributors</a>
+                <a href="login.html">Retailers</a>
+            </div>
+
+            <div class="navbar-actions">
+                <button class="btn-login" onclick="window.location.href='login.html'"><i data-lucide="lock"
+                        style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Login</button>
+                <button class="btn-primary" onclick="handlePostRequirement()">Post Requirement</button>
+                <button class="mobile-menu-toggle" onclick="openMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>India's Largest <span style="color: white ;">B2B Marketplace</span></h1>
+                <p>Connect directly with top manufacturers, distributors, and retailers across India.</p>
+            </div>
+        </section>
+
+        <!-- Ready to Grow Your Business Section -->
+        <section class="ready-grow">
+            <h2>Ready to Grow Your Business?</h2>
+            <p>Choose your role and connect with the right partners for your business needs</p>
+
+            <div class="role-cards-container">
+                <!-- Manufacturer Card -->
+                <div class="role-card manufacturer">
+                    <div class="role-icon"><i data-lucide="factory"
+                            style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i></div>
+                    <h3>Manufacturer/Importer</h3>
+                    <p class="subtitle">Looking for Distributors</p>
+                    <p>Connect with wholesale distributors and retailers looking to stock your products. Expand your
+                        market reach across India.</p>
+                    <button onclick="window.location.href='login.html'">Browse Distributors</button>
+                </div>
+
+                <!-- Distributor Card -->
+                <div class="role-card distributor">
+                    <div class="role-icon">🚚</div>
+                    <h3>Distributor/Wholesaler</h3>
+                    <p class="subtitle">Looking for Manufacturer/Importer</p>
+                    <p>Connect with Manufacturers & Importer to add more product in your distribution network.</p>
+                    <button onclick="window.location.href='login.html'">Find Manufacturers</button>
+                </div>
+
+                <!-- Retailer Card -->
+                <div class="role-card retailer">
+                    <div class="role-icon"><i data-lucide="shopping-cart"
+                            style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i></div>
+                    <h3>Retailers</h3>
+                    <p class="subtitle">Aspiring to be a Wholesaler</p>
+                    <p>Connect with Manufacturers & Importer to start wholesale business.</p>
+                    <button onclick="window.location.href='login.html'">Connect as Retailer</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- About -->
+                <div class="footer-section">
+                    <img src="Media/logo.png" alt="YouVBiZLogo">
+                    <p>B2B Marketplace connecting manufacturers, distributors, and retailers across India.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="Blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i data-lucide="phone"
+                                    style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> +91
+                                98765 43210</a></li>
+                        <li><a href="mailto:support@youvbiz.com">support@youvbiz.com</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 YouVBiZ. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functions
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        // Post Requirement handling
+        function handlePostRequirement() {
+            const role = localStorage.getItem('role');
+            if (role === 'manufacturer') {
+                window.location.href = 'manufacturer-requirements.html';
+            } else if (role === 'distributor' || role === 'retailer') {
+                window.location.href = 'post_requirements.html';
+            } else {
+                alert("Please login to post a requirement");
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

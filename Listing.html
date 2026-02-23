@@ -1,0 +1,2362 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Directory - YouVBiZ</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.396.0/umd/lucide.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --accent-blue: #0061ff;
+            --white: #ffffff;
+            --text-main: #3c4257;
+            --text-muted: #6b7280;
+            --bg-body: #0a2540;
+            --card-shadow: 0 10px 30px rgba(10, 37, 64, .15);
+            --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Barlow', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a2540;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0061ff, #22a28a);
+            border-radius: 8px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: #0a2540;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-top {
+            background: linear-gradient(135deg, #0a2540 0%, #0f3b63 100%);
+            padding: 10px 0;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-top-content {
+            width: 100%;
+            max-width: 1200px;
+            font-size: 12px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .navbar-top-left {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-top-left a,
+        .navbar-top-right a {
+            transition: var(--transition);
+            color: #fff;
+        }
+
+        .navbar-top-left a:hover,
+        .navbar-top-right a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-top-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            color: white;
+        }
+
+        .navbar-inner img {
+            transition: var(--transition);
+            height: 42px;
+        }
+
+        .navbar-inner img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 24px;
+        }
+
+        .menu a {
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 0;
+            transition: var(--transition);
+            position: relative;
+            color: white;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .menu a:hover::after,
+        .menu a.active::after {
+            width: 100%;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            color: var(--secondary-color);
+        }
+
+        .btn-login {
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            color: white;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .btn-login:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+            box-shadow: 0 12px 28px rgba(34, 162, 138, .35);
+        }
+
+        .btn-account,
+        .btn-logout {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        .btn-account:hover,
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+            box-shadow: 0 12px 28px rgba(34, 162, 138, .35);
+        }
+
+        /* Account Dropdown Styling */
+        .account-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .account-dropdown-wrapper .btn-account {
+            margin-left: 0;
+        }
+
+        .account-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #0f3b63;
+            border: 1px solid rgba(34, 162, 138, 0.3);
+            border-radius: 14px;
+            min-width: 180px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+            z-index: 2000;
+        }
+
+        .account-dropdown-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .account-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 18px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease, color 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .account-dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .account-dropdown-menu a:hover {
+            background: rgba(34, 162, 138, 0.2);
+            color: var(--secondary-color);
+        }
+
+        .account-dropdown-menu a .dd-icon {
+            font-size: 16px;
+            width: 22px;
+            text-align: center;
+        }
+
+        .mobile-account-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-account-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 20px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            background: rgba(15, 59, 99, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .mobile-account-links a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-account-links a:hover {
+            background: rgba(34, 162, 138, 0.18);
+            color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .hamburger:hover {
+            color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.15);
+            transform: scale(1.1);
+        }
+
+        /* ===== PAGE HERO BANNER ===== */
+        .page-header {
+            background: linear-gradient(135deg, #051421 0%, #0a2540 40%, #0f3b63 100%);
+            width: 100%;
+            position: relative;
+            min-height: 42vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 108px;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(0, 97, 255, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(34, 162, 138, 0.12) 0%, transparent 55%);
+        }
+
+        /* Animated grid pattern */
+        .page-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .page-header-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 72px 24px;
+        }
+
+        .breadcrumb-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 4px;
+        }
+
+        .breadcrumb-bar a {
+            color: rgba(255, 255, 255, 0.55);
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-bar a:hover {
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb-bar .sep {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+        }
+
+        .breadcrumb-bar .current {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .page-header-inner h1 {
+            color: #fff;
+            font-size: 52px;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header-inner h1 span {
+            background: linear-gradient(135deg, #22a28a, #0061ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header-inner p {
+            color: rgba(255, 255, 255, .8);
+            font-size: 17px;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .stat-num {
+            font-family: 'Barlow', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== MAIN ===== */
+        main {
+            flex: 1;
+        }
+
+        .directory-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            padding: 48px 0;
+            align-items: start;
+        }
+
+        /* ===== SIDEBAR FILTERS ===== */
+        .filters-sidebar {
+            position: sticky;
+            top: 124px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .filter-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 22px;
+            transition: var(--transition);
+        }
+
+        .filter-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(34, 162, 138, 0.2);
+        }
+
+        .filter-title {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 18px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: linear-gradient(180deg, var(--secondary-color), #0061ff);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .filter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-checkbox:hover {
+            border-color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.1);
+        }
+
+        .custom-checkbox::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .custom-checkbox:checked {
+            background: linear-gradient(135deg, var(--secondary-color), #0061ff);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 12px rgba(34, 162, 138, 0.4);
+        }
+
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+
+        .filter-label span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s;
+            line-height: 1.4;
+        }
+
+        .filter-label:hover span {
+            color: #fff;
+        }
+
+        /* Location search */
+        .location-search-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .location-search-wrap .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
+        }
+
+        .location-input {
+            width: 100%;
+            padding: 10px 14px 10px 36px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            font-size: 13px;
+            color: #fff;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .location-input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .location-input:focus {
+            border-color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.08);
+            box-shadow: 0 0 0 3px rgba(34, 162, 138, 0.15);
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 13px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            border: 2px solid rgba(34, 162, 138, 0.3);
+            border-radius: 12px;
+            background: rgba(34, 162, 138, 0.05);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-reset:hover {
+            background: rgba(34, 162, 138, 0.15);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 162, 138, 0.2);
+        }
+
+        /* ===== COMPANIES GRID SECTION ===== */
+        .grid-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .grid-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .grid-header-left h2 {
+            font-family: 'Barlow', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .grid-header-left p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+
+        .results-count {
+            background: rgba(34, 162, 138, 0.12);
+            border: 1px solid rgba(34, 162, 138, 0.25);
+            color: var(--secondary-color);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* ===== COMPANY CARD ===== */
+        .company-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 26px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .company-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .company-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .company-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .company-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .company-card:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .company-card:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-color), #0061ff);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .company-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(34, 162, 138, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .company-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .card-identity {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .company-avatar {
+            width: 58px;
+            height: 58px;
+            min-width: 58px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .company-card:hover .company-avatar {
+            transform: rotate(4deg) scale(1.06);
+        }
+
+        .company-name {
+            font-family: 'Barlow', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .company-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(34, 162, 138, 0.12);
+            border: 1px solid rgba(34, 162, 138, 0.25);
+            color: var(--secondary-color);
+        }
+
+        .rating-badge {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(252, 211, 77, 0.3);
+        }
+
+        /* Card info rows */
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: background 0.25s;
+        }
+
+        .info-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .info-icon-box {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 8px;
+            background: rgba(34, 162, 138, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .info-row:hover .info-icon-box {
+            background: var(--secondary-color);
+            color: #fff;
+        }
+
+        .info-text-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .info-text-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .card-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            margin-bottom: 18px;
+        }
+
+        /* Card Buttons */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-view-profile {
+            flex: 1;
+            padding: 11px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Barlow', sans-serif;
+        }
+
+        .btn-view-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-contact-card {
+            flex: 1;
+            padding: 11px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Barlow', sans-serif;
+            box-shadow: 0 4px 14px rgba(34, 162, 138, 0.3);
+        }
+
+        .btn-contact-card:hover {
+            background: #26C6A9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(34, 162, 138, 0.4);
+        }
+
+        /* No results */
+        .no-results {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .no-results-icon {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .no-results h3 {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+        }
+
+        .no-results p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #051421;
+            color: #fff;
+            padding: 48px 20px 24px;
+            margin-top: 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .footer-section img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            color: #D1D5DB;
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            color: #fff;
+            border-color: var(--secondary-color);
+        }
+
+        .footer-section h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            text-align: center;
+            font-size: 12px;
+            color: #9CA3AF;
+            margin: 0;
+        }
+
+        /* ===== MOBILE MENU ===== */
+        #mobileAuth {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        /* Desktop 1440+ */
+        @media(min-width: 1440px) {
+            .container {
+                max-width: 1320px;
+            }
+
+            .page-header {
+                margin-top: 108px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 60px;
+            }
+
+            .directory-layout {
+                grid-template-columns: 300px 1fr;
+            }
+        }
+
+        /* Desktop 1200-1439 */
+        @media(max-width: 1439px) and (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+
+            .page-header {
+                margin-top: 108px;
+            }
+        }
+
+        /* Tablet Landscape 1024-1199 */
+        @media(max-width: 1199px) and (min-width: 1024px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .page-header {
+                margin-top: 108px;
+                background-attachment: scroll;
+            }
+
+            .page-header-inner h1 {
+                font-size: 44px;
+            }
+
+            .directory-layout {
+                grid-template-columns: 250px 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Tablet 768-1023 */
+        @media(max-width: 1023px) {
+            .hamburger {
+                display: block;
+                order: 3;
+                margin-left: 8px;
+            }
+
+            #navRight {
+                order: 2;
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                background: #0a2540;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .4s ease;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            }
+
+            .menu.show {
+                max-height: 520px;
+            }
+
+            .menu a {
+                display: block;
+                padding: 14px 20px;
+                font-weight: 600;
+                font-size: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                transition: background 0.3s, color 0.3s;
+            }
+
+            .menu a::after {
+                display: none;
+            }
+
+            .menu a:hover {
+                background: rgba(34, 162, 138, 0.12);
+                color: var(--secondary-color);
+            }
+
+            #mobileAuth .btn-login,
+            #mobileAuth .btn-account,
+            #mobileAuth .btn-logout,
+            #mobileAuth .btn-primary {
+                width: 100%;
+                text-align: center;
+                margin-left: 0;
+                border-radius: 12px;
+                padding: 14px 20px;
+                font-size: 15px;
+                font-weight: 700;
+            }
+
+            #mobileAuth .btn-login {
+                background: none;
+                border: 2px solid var(--secondary-color);
+                color: var(--secondary-color);
+            }
+
+            #mobileAuth .btn-login:hover {
+                background: var(--secondary-color);
+                color: #fff;
+            }
+
+            #mobileAuth .btn-account,
+            #mobileAuth .btn-logout,
+            #mobileAuth .btn-primary {
+                background: var(--secondary-color);
+                color: #fff;
+            }
+
+            #navRight #accountDropdownWrapper,
+            #navRight #logoutBtn {
+                display: none !important;
+            }
+
+            .menu.show {
+                max-height: 700px;
+            }
+
+            .mobile-account-links a {
+                font-size: 14px;
+                padding: 13px 20px;
+            }
+
+            .navbar-top {
+                padding: 8px 0;
+                min-height: auto;
+            }
+
+            .navbar-top-content {
+                padding: 0 20px;
+                font-size: 11px;
+            }
+
+            .navbar-top-left {
+                gap: 10px;
+            }
+
+            .navbar-inner {
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar-inner img {
+                order: 1;
+            }
+
+            .page-header {
+                min-height: 38vh;
+                margin-top: 95px;
+                background-attachment: scroll;
+            }
+
+            .page-header-inner {
+                padding: 60px 20px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 40px;
+            }
+
+            .directory-layout {
+                grid-template-columns: 1fr;
+                padding: 32px 0;
+            }
+
+            .filters-sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .filters-sidebar .btn-reset {
+                grid-column: 1 / -1;
+            }
+
+            .companies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile 768 and below */
+        @media(max-width: 767px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .navbar-top {
+                padding: 8px 0;
+            }
+
+            .navbar-top-content {
+                padding: 0 16px;
+                font-size: 10px;
+            }
+
+            .navbar-top-left {
+                gap: 8px;
+            }
+
+            .navbar-inner {
+                padding: 12px 0;
+            }
+
+            .navbar-inner img {
+                height: 36px;
+            }
+
+            .hamburger {
+                font-size: 24px;
+                margin-left: 16px;
+            }
+
+            .btn-login,
+            .btn-primary {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .page-header {
+                min-height: 35vh;
+                margin-top: 85px;
+            }
+
+            .page-header-inner {
+                padding: 50px 16px;
+                gap: 12px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 32px;
+            }
+
+            .page-header-inner p {
+                font-size: 14px;
+            }
+
+            .header-stats {
+                gap: 16px;
+            }
+
+            .stat-num {
+                font-size: 18px;
+            }
+
+            .directory-layout {
+                padding: 24px 0;
+                gap: 20px;
+            }
+
+            .filters-sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            footer {
+                padding: 40px 20px 20px;
+            }
+
+            footer .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Mobile 575 */
+        @media(max-width: 575px) {
+            .page-header {
+                min-height: 32vh;
+                margin-top: 75px;
+            }
+
+            .page-header-inner {
+                padding: 44px 16px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 28px;
+            }
+
+            .stat-divider {
+                display: none;
+            }
+        }
+
+        /* Mobile 479 */
+        @media(max-width: 479px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .navbar-top-content {
+                padding: 0 12px;
+                font-size: 9px;
+            }
+
+            .navbar-top-left {
+                gap: 6px;
+            }
+
+            .navbar-inner img {
+                height: 32px;
+            }
+
+            .btn-login,
+            .btn-primary {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .page-header {
+                min-height: 30vh;
+                margin-top: 72px;
+            }
+
+            .page-header-inner {
+                padding: 40px 12px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 26px;
+            }
+
+            .header-stats {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Mobile 360 */
+        @media(max-width: 360px) {
+            .navbar-top-content {
+                font-size: 9px;
+                padding: 0 10px;
+            }
+
+            .page-header {
+                margin-top: 85px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Mobile 320 */
+        @media(max-width: 320px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .navbar-inner img {
+                height: 28px;
+            }
+
+            .page-header-inner h1 {
+                font-size: 22px;
+            }
+
+            .btn-primary {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+        }
+
+        /* iOS zoom fix */
+        @media(max-width: 640px) {
+
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-top">
+            <div class="navbar-top-content">
+                <div class="navbar-top-left">
+                    <span style="color: #22a28a;">📞 Support: +91 98765 43210</span>
+                    <span style="color: #fff;">📍 Pan India Network</span>
+                    <span><a href="About.html" style="color: #fff; padding: 10px;">About</a></span>
+                    <span><a href="Contact.html" style="color: #fff; padding: 10px;">Contact</a></span>
+                </div>
+                <div class="navbar-top-right">
+                    <a href="register.html" style="color: #fff;">Grow on YouVBiZ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container navbar-inner">
+            <img src="Media/Logo.png" height="42" alt="YouVBiZ Logo">
+            <button class="hamburger" id="hamburger">☰</button>
+
+            <div class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="register.html">Manufacturers</a>
+                <a href="register.html">Distributors</a>
+                <a href="register.html">Retailers</a>
+                <a href="careers.html">Job Opening</a>
+                <a href="register.html">Opportunity</a>
+                <div id="mobileAuth"></div>
+            </div>
+
+            <div class="nav-right" id="navRight">
+                <button id="loginBtn" class="btn-login" onclick="window.location.href='login.html'">🔐 Login</button>
+
+                <!-- Account Dropdown (desktop) -->
+                <div class="account-dropdown-wrapper" id="accountDropdownWrapper" style="display:none;">
+                    <button id="accountBtn" class="btn-account">👤 Account ▾</button>
+                    <div class="account-dropdown-menu" id="accountDropdownMenu">
+                        <a href="#" id="ddDashboard"><span class="dd-icon">🏠</span> Dashboard</a>
+                        <a href="#" id="ddProfile"><span class="dd-icon">👤</span> Profile</a>
+                    </div>
+                </div>
+
+                <button id="logoutBtn" class="btn-logout" style="display:none;">Logout</button>
+                <button class="btn-primary" id="postRequirementBtn" onclick="window.location.href='login.html'">Post
+                    Requirement</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- PAGE HERO HEADER -->
+        <div class="page-header">
+            <div class="page-header-inner">
+                <div class="breadcrumb-bar">
+                    <a href="index.html">Home</a>
+                    <span class="sep">›</span>
+                    <span class="current">Company Directory</span>
+                </div>
+                <h1>Company <span>Directory</span></h1>
+                <p>Explore verified suppliers and manufacturers in the plywood and construction materials industry</p>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-num">500+</span>
+                        <span class="stat-label">Verified Companies</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-num">12</span>
+                        <span class="stat-label">States Covered</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-num">4.8★</span>
+                        <span class="stat-label">Avg. Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="directory-layout">
+
+                <!-- FILTERS SIDEBAR -->
+                <aside class="filters-sidebar">
+
+                    <!-- Plywood Category -->
+                    <div class="filter-card">
+                        <div class="filter-title">Plywood Category</div>
+                        <div class="filter-list">
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="Commercial Plywood">
+                                <span>Commercial Plywood</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="Marine Grade (BWP)">
+                                <span>Marine Grade (BWP)</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="Shuttering Plywood">
+                                <span>Shuttering Plywood</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="Decorative Laminates">
+                                <span>Decorative Laminates</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Flexi Plywood">
+                                <span>Flexi Plywood</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Thickness -->
+                    <div class="filter-card">
+                        <div class="filter-title">Thickness</div>
+                        <div class="filter-list">
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="6 mm">
+                                <span>6 mm</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="9 mm">
+                                <span>9 mm</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="12 mm">
+                                <span>12 mm</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="18 mm">
+                                <span>18 mm</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="25 mm">
+                                <span>25 mm</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Grade -->
+                    <div class="filter-card">
+                        <div class="filter-title">Grade</div>
+                        <div class="filter-list">
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="MR Grade (Moisture Resistant)">
+                                <span>MR Grade (Moisture Resistant)</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="BWR Grade (Boiling Water Resistant)">
+                                <span>BWR Grade (Boiling Water Resistant)</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox"
+                                    value="BWP Grade (Boiling Water Proof)">
+                                <span>BWP Grade (Boiling Water Proof)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="filter-card">
+                        <div class="filter-title">Location</div>
+                        <div class="location-search-wrap">
+                            <i data-lucide="search" class="search-icon" style="width:14px;height:14px;"></i>
+                            <input type="text" id="location-search" placeholder="Search City" class="location-input">
+                        </div>
+                        <div class="filter-list">
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Delhi">
+                                <span>Delhi</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Mumbai">
+                                <span>Mumbai</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Bangalore">
+                                <span>Bangalore</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Yamuna Nagar">
+                                <span>Yamuna Nagar</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Supplier Type -->
+                    <div class="filter-card">
+                        <div class="filter-title">Supplier Type</div>
+                        <div class="filter-list">
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Manufacturer">
+                                <span>Manufacturer</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Distributor">
+                                <span>Distributor</span>
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="custom-checkbox filter-checkbox" value="Wholesaler">
+                                <span>Wholesaler</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button id="reset-filters" class="btn-reset">↺ Reset Filters</button>
+                </aside>
+
+                <!-- COMPANIES GRID -->
+                <section class="grid-section">
+                    <div class="grid-header">
+                        <div class="grid-header-left">
+                            <h2>All Companies</h2>
+                            <p>Showing verified plywood & construction suppliers</p>
+                        </div>
+                        <span class="results-count" id="results-count">6 Results</span>
+                    </div>
+
+                    <div class="companies-grid" id="companies-grid">
+
+                        <!-- Card 1: Supreme Plywood Co. -->
+                        <div class="company-card" data-type="Manufacturer" data-location="Yamuna Nagar"
+                            data-category="Commercial Plywood" data-thickness="18 mm"
+                            data-grade="MR Grade (Moisture Resistant)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #0061ff, #0a2540);">SP</div>
+                                    <div>
+                                        <div class="company-name">Supreme Plywood Co.</div>
+                                        <span class="company-type">
+                                            <i data-lucide="factory" style="width:11px;height:11px;"></i>
+                                            Manufacturer
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.8</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Yamuna Nagar, Haryana</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">15 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">50-100 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">Commercial & Marine Grade Plywood</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: GreenDeck Distributors -->
+                        <div class="company-card" data-type="Distributor" data-location="Bangalore"
+                            data-category="Decorative Laminates" data-thickness="12 mm"
+                            data-grade="BWR Grade (Boiling Water Resistant)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #10b981, #059669);">GD</div>
+                                    <div>
+                                        <div class="company-name">GreenDeck Distributors</div>
+                                        <span class="company-type">
+                                            <i data-lucide="truck" style="width:11px;height:11px;"></i>
+                                            Distributor
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.6</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Bangalore, Karnataka</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">8 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">20-50 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">Laminates & Decorative Sheets</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Woodhouse Retail -->
+                        <div class="company-card" data-type="Wholesaler" data-location="Mumbai"
+                            data-category="Shuttering Plywood" data-thickness="25 mm"
+                            data-grade="BWP Grade (Boiling Water Proof)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #3b82f6, #2563eb);">WH</div>
+                                    <div>
+                                        <div class="company-name">Woodhouse Retail</div>
+                                        <span class="company-type">
+                                            <i data-lucide="store" style="width:11px;height:11px;"></i>
+                                            Wholesaler
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.7</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Mumbai, Maharashtra</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">12 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">30-50 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">All Construction Materials</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Pinnacle Plywood Ltd -->
+                        <div class="company-card" data-type="Manufacturer" data-location="Delhi"
+                            data-category="Marine Grade (BWP)" data-thickness="9 mm"
+                            data-grade="MR Grade (Moisture Resistant)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #3b82f6, #1e3a8a);">PP</div>
+                                    <div>
+                                        <div class="company-name">Pinnacle Plywood Ltd</div>
+                                        <span class="company-type">
+                                            <i data-lucide="factory" style="width:11px;height:11px;"></i>
+                                            Manufacturer
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.9</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Delhi, Delhi NCR</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">20 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">100-150 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">Premium & Specialty Plywood</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: TradeMax Wholesale -->
+                        <div class="company-card" data-type="Distributor" data-location="Mumbai"
+                            data-category="Commercial Plywood" data-thickness="18 mm"
+                            data-grade="MR Grade (Moisture Resistant)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #ef4444, #dc2626);">TM</div>
+                                    <div>
+                                        <div class="company-name">TradeMax Wholesale</div>
+                                        <span class="company-type">
+                                            <i data-lucide="truck" style="width:11px;height:11px;"></i>
+                                            Distributor
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.5</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Mumbai, Maharashtra</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">6 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">25-40 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">Bulk Orders & Wholesale</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: EcoVeneer Industries -->
+                        <div class="company-card" data-type="Manufacturer" data-location="Bangalore"
+                            data-category="Flexi Plywood" data-thickness="6 mm"
+                            data-grade="BWP Grade (Boiling Water Proof)">
+                            <div class="card-header">
+                                <div class="card-identity">
+                                    <div class="company-avatar"
+                                        style="background: linear-gradient(135deg, #6366f1, #4f46e5);">EV</div>
+                                    <div>
+                                        <div class="company-name">EcoVeneer Industries</div>
+                                        <span class="company-type">
+                                            <i data-lucide="factory" style="width:11px;height:11px;"></i>
+                                            Manufacturer
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating-badge">★ 4.8</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="map-pin"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Location</div>
+                                        <div class="info-text-value">Bangalore, Karnataka</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="briefcase"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Years Active</div>
+                                        <div class="info-text-value">10 years in business</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="users"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Team Size</div>
+                                        <div class="info-text-value">40-60 employees</div>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-icon-box"><i data-lucide="package"
+                                            style="width:15px;height:15px;"></i></div>
+                                    <div>
+                                        <div class="info-text-label">Specialization</div>
+                                        <div class="info-text-value">Veneers & Eco-Friendly Materials</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-divider"></div>
+                            <div class="card-actions">
+                                <button class="btn-view-profile">View Profile</button>
+                                <button class="btn-contact-card">Contact</button>
+                            </div>
+                        </div>
+
+                        <!-- No Results Message -->
+                        <div class="no-results" id="no-results">
+                            <div class="no-results-icon">
+                                <i data-lucide="search-x" style="width:32px;height:32px;"></i>
+                            </div>
+                            <h3>No companies found</h3>
+                            <p>Try adjusting your filters to see more results</p>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <img src="Media/Logo.png" alt="YouVBiZ Logo">
+                    <p>B2B Marketplace connecting manufacturers, distributors, and retailers across India.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Twitter">𝕏</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="Blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210">📞 +91 98765 43210</a></li>
+                        <li><a href="mailto:support@bizgroww.com">✉️ support@bizgroww.com</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 BizGroww. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // ===== FILTER FUNCTIONALITY =====
+        const checkboxes = document.querySelectorAll('.filter-checkbox');
+        const companyCards = document.querySelectorAll('.company-card[data-type]');
+        const resetButton = document.getElementById('reset-filters');
+        const resultsCount = document.getElementById('results-count');
+        const noResults = document.getElementById('no-results');
+
+        function filterCompanies() {
+            const selected = { category: [], thickness: [], grade: [], location: [], type: [] };
+
+            checkboxes.forEach(cb => {
+                if (!cb.checked) return;
+                const v = cb.value;
+                if (['Commercial Plywood', 'Marine Grade (BWP)', 'Shuttering Plywood', 'Decorative Laminates', 'Flexi Plywood'].includes(v)) selected.category.push(v);
+                else if (['6 mm', '9 mm', '12 mm', '18 mm', '25 mm'].includes(v)) selected.thickness.push(v);
+                else if (v.includes('Grade')) selected.grade.push(v);
+                else if (['Delhi', 'Mumbai', 'Bangalore', 'Yamuna Nagar'].includes(v)) selected.location.push(v);
+                else if (['Manufacturer', 'Distributor', 'Wholesaler'].includes(v)) selected.type.push(v);
+            });
+
+            let visible = 0;
+            companyCards.forEach(card => {
+                let show = true;
+                if (selected.category.length > 0 && !selected.category.includes(card.dataset.category)) show = false;
+                if (selected.thickness.length > 0 && !selected.thickness.includes(card.dataset.thickness)) show = false;
+                if (selected.grade.length > 0 && !selected.grade.includes(card.dataset.grade)) show = false;
+                if (selected.location.length > 0 && !selected.location.includes(card.dataset.location)) show = false;
+                if (selected.type.length > 0 && !selected.type.includes(card.dataset.type)) show = false;
+
+                card.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+
+            resultsCount.textContent = visible + ' Result' + (visible !== 1 ? 's' : '');
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', filterCompanies));
+
+        resetButton.addEventListener('click', () => {
+            checkboxes.forEach(cb => cb.checked = false);
+            filterCompanies();
+        });
+
+        // ===== ROLE BASED NAVBAR =====
+        const role = localStorage.getItem("role");
+        const menu = document.getElementById("menu");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const accountBtn = document.getElementById("accountBtn");
+        const accountDropdownWrapper = document.getElementById("accountDropdownWrapper");
+        const accountDropdownMenu = document.getElementById("accountDropdownMenu");
+        const ddDashboard = document.getElementById("ddDashboard");
+        const ddProfile = document.getElementById("ddProfile");
+
+        function getAccountLinks() {
+            if (role === "manufacturer") return { dash: "manufacturer-dashboard.html", prof: "manufacturer_detail.html" };
+            if (role === "distributor") return { dash: "distributor-dashboard.html", prof: "distributor_detail.html" };
+            if (role === "retailer") return { dash: "retailer-dashboard.html", prof: "retailer_detail.html" };
+            return { dash: "login.html", prof: "login.html" };
+        }
+        const hamburger = document.getElementById("hamburger");
+        const mobileAuth = document.getElementById("mobileAuth");
+        const navRight = document.getElementById("navRight");
+        const postRequirementBtn = document.getElementById("postRequirementBtn");
+
+        function updateMenuLinks() {
+            let links = '';
+            if (role === "manufacturer") {
+                links = `<a href="index.html">Home</a><a href="#">Distributor</a><a href="#">Retailer</a><a href="careers.html">Opportunity</a><a href="enquiry-sent.html">Enquiry Sent</a>`;
+            } else if (role === "distributor") {
+                links = `<a href="index.html">Home</a><a href="#">Manufacturer</a><a href="#">Retailer</a><a href="distributor_detail.html">My Leads</a><a href="enquiry.html">Enquiry Received</a>`;
+            } else if (role === "retailer") {
+                links = `<a href="index.html">Home</a><a href="#">Manufacturers</a><a href="#">Distributors</a><a href="retailer_detail.html">My Orders</a><a href="enquiry.html">Enquiry</a>`;
+            } else {
+                links = `<a href="index.html">Home</a><a href="register.html">Manufacturers</a><a href="register.html">Distributors</a><a href="register.html">Retailers</a><a href="careers.html">Job Opening</a><a href="register.html">Opportunity</a>`;
+            }
+            menu.innerHTML = links;
+            menu.appendChild(mobileAuth);
+            document.querySelectorAll("#menu a").forEach(link => {
+                link.addEventListener("click", () => menu.classList.remove("show"));
+            });
+        }
+
+        function updateAuthButtons() {
+            if (role) {
+                const links = getAccountLinks();
+                if (loginBtn) loginBtn.style.display = "none";
+                if (accountDropdownWrapper) accountDropdownWrapper.style.display = "inline-block";
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (ddDashboard) ddDashboard.href = links.dash;
+                if (ddProfile) ddProfile.href = links.prof;
+            } else {
+                if (loginBtn) loginBtn.style.display = "inline-block";
+                if (accountDropdownWrapper) accountDropdownWrapper.style.display = "none";
+                if (logoutBtn) logoutBtn.style.display = "none";
+            }
+        }
+
+        updateAuthButtons();
+        updateMenuLinks();
+
+        if (logoutBtn) logoutBtn.addEventListener("click", () => { localStorage.removeItem("role"); window.location.href = "index.html"; });
+
+        if (accountBtn) {
+            accountBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                accountDropdownMenu.classList.toggle("open");
+            });
+        }
+
+        document.addEventListener("click", (e) => {
+            if (accountDropdownWrapper && !accountDropdownWrapper.contains(e.target)) {
+                if (accountDropdownMenu) accountDropdownMenu.classList.remove("open");
+            }
+        });
+
+        if (hamburger) hamburger.addEventListener("click", () => menu.classList.toggle("show"));
+
+        document.addEventListener('click', e => {
+            if (!menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        function moveAuthButtons() {
+            if (window.innerWidth <= 1023) {
+                if (role) {
+                    if (!mobileAuth.querySelector(".mobile-account-links")) {
+                        const links = getAccountLinks();
+                        const ml = document.createElement("div");
+                        ml.className = "mobile-account-links";
+                        ml.innerHTML = '<a href="' + links.dash + '"><span class="dd-icon">🏠</span> Dashboard</a><a href="' + links.prof + '"><span class="dd-icon">👤</span> Profile</a>';
+                        mobileAuth.insertBefore(ml, mobileAuth.firstChild);
+                    }
+                    if (logoutBtn && !mobileAuth.contains(logoutBtn)) mobileAuth.appendChild(logoutBtn);
+                    if (logoutBtn) { logoutBtn.style.display = "block"; logoutBtn.style.width = "100%"; logoutBtn.style.marginLeft = "0"; }
+                    if (accountDropdownWrapper) accountDropdownWrapper.style.display = "none";
+                } else {
+                    if (loginBtn && !mobileAuth.contains(loginBtn)) mobileAuth.appendChild(loginBtn);
+                    if (loginBtn) { loginBtn.style.display = "block"; loginBtn.style.width = "100%"; loginBtn.style.textAlign = "center"; loginBtn.style.marginRight = "0"; }
+                }
+                if (postRequirementBtn && !mobileAuth.contains(postRequirementBtn)) mobileAuth.appendChild(postRequirementBtn);
+                if (postRequirementBtn) { postRequirementBtn.style.display = "block"; postRequirementBtn.style.width = "100%"; }
+            } else {
+                const ml = mobileAuth.querySelector(".mobile-account-links");
+                if (ml) ml.remove();
+                if (loginBtn && !navRight.contains(loginBtn)) navRight.prepend(loginBtn);
+                if (accountDropdownWrapper && !navRight.contains(accountDropdownWrapper)) {
+                    const logoutEl = navRight.querySelector("#logoutBtn");
+                    navRight.insertBefore(accountDropdownWrapper, logoutEl || postRequirementBtn);
+                }
+                if (logoutBtn && !navRight.contains(logoutBtn)) navRight.appendChild(logoutBtn);
+                if (postRequirementBtn && !navRight.contains(postRequirementBtn)) navRight.appendChild(postRequirementBtn);
+                if (role) {
+                    if (loginBtn) loginBtn.style.display = "none";
+                    if (accountDropdownWrapper) accountDropdownWrapper.style.display = "inline-block";
+                    if (logoutBtn) { logoutBtn.style.display = "inline-block"; logoutBtn.style.width = "auto"; logoutBtn.style.marginLeft = "8px"; }
+                } else {
+                    if (loginBtn) { loginBtn.style.display = "inline-block"; loginBtn.style.width = "auto"; loginBtn.style.marginRight = "10px"; }
+                    if (accountDropdownWrapper) accountDropdownWrapper.style.display = "none";
+                    if (logoutBtn) logoutBtn.style.display = "none";
+                }
+                if (postRequirementBtn) { postRequirementBtn.style.display = "inline-block"; postRequirementBtn.style.width = "auto"; }
+                menu.classList.remove("show");
+            }
+        }
+
+        window.addEventListener("load", moveAuthButtons);
+        window.addEventListener("resize", moveAuthButtons);
+
+        // Page fade in
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => { document.body.style.transition = 'opacity 0.4s'; document.body.style.opacity = '1'; }, 80);
+        });
+    </script>
+
+</body>
+
+</html>

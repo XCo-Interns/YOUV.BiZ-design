@@ -1,0 +1,713 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Post Job - YouVBiZ
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --accent-bg: #0f172a;
+            --text-main: #3c4257;
+            --sidebar-gradient: linear-gradient(45deg,#1a7161 0%,#0a2540 100%);
+            --body-bg: #0a2540;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 { font-family: 'Barlow', sans-serif; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-gradient);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .logo {
+            padding: 30px 24px;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--white);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .sidebar nav {
+            padding: 20px 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            margin: 4px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .sidebar a.active {
+            background: var(--secondary-color);
+            box-shadow: 0 4px 15px rgba(34, 162, 138, 0.3);
+        }
+
+        .sidebar a .icon {
+            font-size: 18px;
+            margin-right: 12px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .header {
+            background: #0a2540; padding: 0 40px; height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #fff;
+        }
+
+        .notification-btn:hover {
+            background: #eef2f7;
+            transform: translateY(-1px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: 2px solid var(--white);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #fff;
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background: #eef2f7;
+            transform: scale(1.03);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-info {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #697386;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #f44336;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin-top: 8px;
+            display: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .logout-btn.show {
+            display: block;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 40px;
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e3e8ee;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: var(--text-main);
+            background: #fcfdfe;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(34, 162, 138, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(34, 162, 138, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(34, 162, 138, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #eef2f7;
+        }
+
+        @media (max-width: 600px) {
+            .form-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .hamburger {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #051421;
+            color: #fff;
+            padding: 48px 20px 24px;
+            margin-top: 60px;
+        }
+
+        footer .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        footer .footer-section img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 16px;
+        }
+
+        footer .footer-section p {
+            font-size: 14px;
+            color: #D1D5DB;
+            margin-bottom: 16px;
+        }
+
+        footer h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            font-size: 14px;
+            color: #D1D5DB;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        footer .footer-bottom p {
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" style="padding: 10px; display: flex; justify-content: center; align-items: center;">
+                <img src="Media/Logo.png" alt="YouVBiZ" style="max-height: 60px; max-width: 100%;">
+            </div>
+            <nav>
+                <a href="manufacturer-dashboard.html">
+                    <span class="icon"><i data-lucide="layout-dashboard" style="width:18px;height:18px;"></i></span>
+                    Dashboard
+                </a>
+                <a href="manufacturer-profile.html">
+                    <span class="icon"><i data-lucide="user" style="width:18px;height:18px;"></i></span>
+                    Company Profile
+                </a>
+                <a href="manufacturer-products.html">
+                    <span class="icon"><i data-lucide="package" style="width:18px;height:18px;"></i></span>
+                    Product Portfolio
+                </a>
+                <a href="manufacturer-requirements.html">
+                    <span class="icon"><i data-lucide="clipboard-list" style="width:18px;height:18px;"></i></span>
+                    Distributor Requirements
+                </a>
+                <a href="manufacturer-gallery.html">
+                    <span class="icon"><i data-lucide="image" style="width:18px;height:18px;"></i></span>
+                    Gallery
+                </a>
+                <a href="manufacturer-certificates.html">
+                    <span class="icon"><i data-lucide="file-text" style="width:18px;height:18px;"></i></span>
+                    Certificates
+                </a>
+                <a href="manufacturer-enquiries.html">
+                    <span class="icon"><i data-lucide="message-square" style="width:18px;height:18px;"></i></span>
+                    Enquiries
+                </a>
+                <a href="manufacturer-transactions.html">
+                    <span class="icon"><i data-lucide="credit-card" style="width:18px;height:18px;"></i></span>
+                    Transactions
+                </a>
+                <a class="active" href="manufacturer-jobs.html">
+                    <span class="icon"><i data-lucide="briefcase" style="width:18px;height:18px;"></i></span>
+                    Jobs
+                </a>
+                <a href="manufacturer-settings.html">
+                    <span class="icon"><i data-lucide="settings" style="width:18px;height:18px;"></i></span>
+                    Settings
+                </a>
+            </nav>
+        </div>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="toggleSidebar()">
+                        <i data-lucide="menu" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                    </button>
+                    <h1>
+                        Post Job
+                    </h1>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="showNotifications()">
+                        <i data-lucide="bell" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                        <span class="notification-badge">
+                            3
+                        </span>
+                    </button>
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            JS
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">
+                                John Smith
+                            </div>
+                            <div class="user-role">
+                                Manufacturer
+                            </div>
+                        </div>
+                        <!-- Hidden logout button -->
+                        <div class="logout-btn" id="logoutBtn">
+                            Logout
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="form-card">
+                    <form onsubmit="postJob(event)">
+                        <div class="form-group">
+                            <label>
+                                Job Title *
+                            </label>
+                            <input required placeholder="e.g. Sales Executive – Paint Division">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Company Name *
+                            </label>
+                            <input required placeholder="Enter company name">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Industry *
+                            </label>
+                            <input required placeholder="e.g. Paint, Cement, Hardware">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i data-lucide="map-pin" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Location *
+                            </label>
+                            <input required placeholder="e.g. Bangalore, Delhi NCR">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                🕰️ Job Type *
+                            </label>
+                            <select required>
+                                <option value="">
+                                    Select job type
+                                </option>
+                                <option>
+                                    Manufacturer
+                                </option>
+                                <option>
+                                    Distributor
+                                </option>
+                                <option>
+                                    Retailer
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                📈 Experience Required *
+                            </label>
+                            <input required placeholder="e.g. 2–5 years">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i data-lucide="credit-card" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Salary Range *
+                            </label>
+                            <input required placeholder="e.g. ₹8–12 LPA">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Skills *
+                            </label>
+                            <input required placeholder="Enter skills (comma separated)">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Job Description *
+                            </label>
+                            <textarea required
+                                placeholder="Enter detailed job description, responsibilities, targets, travel requirements, etc."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                Post Job
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- FOOTER -->
+            <footer>
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <!-- About -->
+                        <div class="footer-section">
+                            <img src="Media/Logo.png" alt="YouVBiZLogo">
+                            <p>B2B Marketplace connecting manufacturers, distributors, and retailers across India.</p>
+                        </div>
+
+                        <!-- Company -->
+                        <div class="footer-section">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="About.html">About Us</a></li>
+                                <li><a href="Careers.html">Careers</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Support -->
+                        <div class="footer-section">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="tel:+919876543210"><i data-lucide="phone" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> +91 98765 43210</a></li>
+                                <li><a href="mailto:support@youvbiz.com">support@youvbiz.com</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="footer-bottom">
+                        <p>© 2024 YouVBiZ. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        function postJob(e) {
+            e.preventDefault();
+            alert("<i data-lucide="check-circle-2" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Job posted successfully!");
+            window.location.href = 'manufacturer-jobs.html';
+        }
+
+        function showNotifications() {
+            alert('📪 You have 3 new notifications:\n\n1. New enquiry for Marine Plywood\n2. Product approval pending\n3. New distributor requirement match');
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+
+        const profile = document.getElementById('userProfile');
+        const logout = document.getElementById('logoutBtn');
+
+        profile.addEventListener('click', () => {
+            logout.classList.toggle('show');
+        });
+
+        logout.addEventListener('click', () => {
+            window.location.href = "landing.html";
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profile.contains(e.target)) {
+                logout.classList.remove('show');
+            }
+        });
+    </script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
+
+

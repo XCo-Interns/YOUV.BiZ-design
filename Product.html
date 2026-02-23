@@ -1,0 +1,2560 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouVBiZ - 18mm Marine Grade Plywood</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.396.0/umd/lucide.min.js"></script>
+
+    <style>
+        /* ============ RESET & ROOT ============ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --bg-body: #0a2540;
+            --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+            --nav-height: 108px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Barlow', sans-serif;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            background: #0a2540;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(10, 37, 64, 0.2);
+        }
+
+        .navbar-top {
+            background: linear-gradient(135deg, #0a2540 0%, #0f3b63 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-top-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 11px;
+            flex-wrap: wrap;
+        }
+
+        .navbar-top-left {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            min-width: 0;
+        }
+
+        .navbar-top-left span,
+        .navbar-top-left a {
+            color: #fff;
+            white-space: nowrap;
+            transition: var(--transition);
+            font-size: 12px;
+        }
+
+        .navbar-top-left a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-top-right {
+            flex-shrink: 0;
+        }
+
+        .navbar-top-right a {
+            color: #fff;
+            white-space: nowrap;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .navbar-top-right a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .navbar-main {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            gap: 12px;
+            position: relative;
+        }
+
+        .navbar-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .navbar-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Desktop menu — hidden on mobile by default */
+        .menu {
+            display: none;
+            gap: 20px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .menu a {
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            white-space: nowrap;
+            position: relative;
+            transition: var(--transition);
+            padding: 4px 0;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .menu a:hover::after {
+            width: 100%;
+        }
+
+        .menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .btn-login {
+            font-weight: 700;
+            font-size: 13px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            white-space: nowrap;
+            transition: var(--transition);
+            padding: 4px 0;
+            min-height: 36px;
+        }
+
+        .btn-login:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 6px 16px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+            min-height: 36px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+        }
+
+        .btn-account,
+        .btn-logout {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            min-height: 36px;
+        }
+
+        .btn-account:hover,
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+        }
+
+        /* Account Dropdown Styling */
+        .account-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .account-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #0a2540;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 1001;
+            margin-top: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .account-dropdown-menu.open {
+            display: block;
+            animation: fadeInDown 0.3s ease forwards;
+        }
+
+        .account-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .account-dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .account-dropdown-menu a:hover {
+            background: rgba(34, 162, 138, 0.15);
+            color: #22a28a !important;
+            padding-left: 25px;
+        }
+
+        .dd-icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile specific styles for the account links in hamburger menu */
+        .mobile-account-links {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .mobile-account-links a {
+            display: flex !important;
+            align-items: center;
+            padding: 12px 20px !important;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            padding: 7px 10px;
+            font-size: 18px;
+            line-height: 1;
+            transition: var(--transition);
+            flex-shrink: 0;
+            min-height: 36px;
+        }
+
+        .hamburger:hover {
+            color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.15);
+        }
+
+        /* Mobile dropdown menu */
+        .mobile-menu-wrap {
+            display: none;
+            flex-direction: column;
+            background: #0a2540;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            max-height: calc(100vh - var(--nav-height));
+            overflow-y: auto;
+        }
+
+        .mobile-menu-wrap.show {
+            display: flex;
+        }
+
+        .mobile-menu-wrap a {
+            display: block;
+            padding: 13px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .mobile-menu-wrap a:hover {
+            background: rgba(34, 162, 138, 0.12);
+            color: var(--secondary-color);
+        }
+
+        #mobileAuth {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 14px 16px;
+            border-top: 2px solid rgba(255, 255, 255, 0.12);
+        }
+
+        #mobileAuth button {
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 44px;
+        }
+
+        #mobileAuth .btn-login-mob {
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #mobileAuth .btn-login-mob:hover {
+            background: var(--secondary-color);
+            color: #fff;
+        }
+
+        #mobileAuth .btn-primary-mob {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #mobileAuth .btn-primary-mob:hover {
+            background: #26C6A9;
+        }
+
+        #mobileAuth .btn-account-mob,
+        #mobileAuth .btn-logout-mob {
+            background: var(--secondary-color);
+            color: #fff;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #mobileAuth .btn-account-mob:hover,
+        #mobileAuth .btn-logout-mob:hover {
+            background: #26C6A9;
+        }
+
+        /* ============ MAIN ============ */
+        main {
+            flex: 1;
+            padding-top: var(--nav-height);
+        }
+
+        /* ============ BREADCRUMB ============ */
+        .breadcrumb-bar {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.5);
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb .crumb-current {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+        }
+
+        .breadcrumb-sep {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ============ PRODUCT LAYOUT ============ */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 0 40px;
+        }
+
+        /* ============ CARDS ============ */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(34, 162, 138, 0.3);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-accent {
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), #26C6A9);
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        /* ============ PRODUCT HEADER ============ */
+        .product-header-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* ============ IMAGE GALLERY ============ */
+        .product-main-img {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: zoom-in;
+        }
+
+        .product-main-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-main-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .zoom-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .product-main-img:hover .zoom-overlay {
+            opacity: 1;
+        }
+
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .gallery-thumb {
+            aspect-ratio: 1/1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumb:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .gallery-thumb.active {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(34, 162, 138, 0.4);
+        }
+
+        .thumb-more {
+            aspect-ratio: 1/1;
+            border-radius: 8px;
+            background: rgba(34, 162, 138, 0.12);
+            border: 2px solid rgba(34, 162, 138, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .thumb-more:hover {
+            background: rgba(34, 162, 138, 0.22);
+        }
+
+        /* ============ PRODUCT INFO ============ */
+        .product-title {
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1.3;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .product-badges {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .badge-stock {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .badge-model {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-enquiry {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(34, 162, 138, .25);
+            transition: var(--transition);
+            min-height: 44px;
+        }
+
+        .btn-enquiry:hover {
+            transform: translateY(-2px);
+            background: #26C6A9;
+        }
+
+        .btn-chat {
+            width: 100%;
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            min-height: 44px;
+        }
+
+        .btn-chat:hover {
+            background: rgba(34, 162, 138, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ============ TABS ============ */
+        .tabs-bar {
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tabs-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 12px 14px;
+            font-weight: 600;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            background: none;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            flex-shrink: 0;
+            min-height: 44px;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .tab-btn.active {
+            color: var(--secondary-color);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        /* ============ TAB PANELS ============ */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ============ SPECS ============ */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .spec-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.2s, padding-left 0.2s;
+        }
+
+        .spec-row:hover {
+            padding-left: 5px;
+            background: rgba(34, 162, 138, 0.05);
+        }
+
+        .spec-label {
+            width: 48%;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 500;
+            padding-right: 6px;
+        }
+
+        .spec-value {
+            width: 52%;
+            font-size: 13px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 14px;
+            margin-top: 24px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .product-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 13px;
+        }
+
+        .product-desc p {
+            margin-bottom: 10px;
+        }
+
+        .product-desc ul {
+            padding-left: 18px;
+            margin-top: 6px;
+        }
+
+        .product-desc ul li {
+            margin-bottom: 6px;
+        }
+
+        /* ============ COMPANY PANEL ============ */
+        .company-profile {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .company-profile p {
+            margin-bottom: 10px;
+        }
+
+        .company-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .stat-box {
+            background: rgba(34, 162, 138, 0.1);
+            border: 1px solid rgba(34, 162, 138, 0.2);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            font-family: 'Barlow', sans-serif;
+        }
+
+        .stat-lbl {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+
+        /* ============ REVIEWS PANEL ============ */
+        .reviews-summary {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .rating-big {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            font-family: 'Barlow', sans-serif;
+            line-height: 1;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+        }
+
+        .rating-count {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .review-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            font-size: 12px;
+        }
+
+        .review-text {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* ============ SELLER BOX ============ */
+        .seller-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 12px;
+        }
+
+        .seller-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .seller-avatar {
+            width: 48px;
+            height: 48px;
+            background: rgba(34, 162, 138, 0.2);
+            border: 2px solid rgba(34, 162, 138, 0.4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            flex-shrink: 0;
+        }
+
+        .seller-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1.3;
+        }
+
+        .seller-name:hover {
+            color: var(--secondary-color);
+        }
+
+        .seller-tags {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag-verified {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+
+        .tag-years {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .seller-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 0;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .seller-detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .seller-detail-row i {
+            color: var(--secondary-color);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .seller-btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-seller-sec {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 9px 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            min-height: 44px;
+        }
+
+        .btn-seller-sec:hover {
+            background: rgba(34, 162, 138, 0.15);
+            border-color: rgba(34, 162, 138, 0.3);
+            color: var(--secondary-color);
+        }
+
+        .btn-contact-supplier {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(34, 162, 138, 0.15);
+            color: var(--secondary-color);
+            border: 2px solid rgba(34, 162, 138, 0.3);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Barlow', sans-serif;
+            min-height: 44px;
+        }
+
+        .btn-contact-supplier:hover {
+            background: rgba(34, 162, 138, 0.25);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* ============ TRUST CARD ============ */
+        .trust-card {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .trust-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-bottom: 12px;
+        }
+
+        .trust-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .trust-item i {
+            color: #60a5fa;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ============ COLUMNS ============ */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .sidebar-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* ============ SIMILAR PRODUCTS ============ */
+        .similar-section {
+            padding: 32px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .similar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 10px;
+        }
+
+        .similar-header h2 {
+            font-size: 18px;
+            color: var(--secondary-color);
+        }
+
+        .nav-arrows {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .nav-arrow {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-arrow:hover {
+            border-color: var(--secondary-color);
+            background: rgba(34, 162, 138, 0.15);
+            color: var(--secondary-color);
+        }
+
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(34, 162, 138, 0.3);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .product-card-img {
+            height: 110px;
+            overflow: hidden;
+        }
+
+        .product-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-card-img img {
+            transform: scale(1.07);
+        }
+
+        .product-card-body {
+            padding: 10px 12px 12px;
+        }
+
+        .product-card-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 3px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .product-card-seller {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: #051421;
+            color: #fff;
+            padding: 36px 20px 20px;
+            margin-top: 16px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-section img {
+            height: 34px;
+            width: auto;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .footer-section img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-section p {
+            font-size: 13px;
+            color: #D1D5DB;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #D1D5DB;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        footer h3 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 8px;
+        }
+
+        footer ul li a {
+            font-size: 13px;
+            color: #D1D5DB;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        footer ul li a:hover {
+            color: var(--secondary-color);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 18px;
+        }
+
+        .footer-bottom p {
+            text-align: center;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+
+        /* RESPONSIVE  */
+
+        /* 320px – 360px: iPhone SE 1st gen, very small phones */
+        @media (max-width: 360px) {
+            :root {
+                --nav-height: 120px;
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 15px);
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .product-grid {
+                gap: 28px;
+                padding-top: 15px;
+            }
+
+            .navbar-top-content {
+                padding: 10px 12px;
+                font-size: 10px;
+            }
+
+            .navbar-top-left {
+                gap: 8px;
+            }
+
+            .navbar-top-left .hide-xs {
+                display: none;
+            }
+
+            .navbar-logo img {
+                height: 30px;
+            }
+
+            .navbar-main {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            .btn-primary {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+
+            .product-title {
+                font-size: 17px;
+            }
+
+            .card-body {
+                padding: 18px;
+            }
+
+            .tab-btn {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            .similar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .company-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .spec-label,
+            .spec-value {
+                font-size: 12px;
+            }
+
+            .product-card-img {
+                height: 120px;
+            }
+
+            .section-title {
+                font-size: 15px;
+            }
+        }
+
+        /* 361px – 480px: Most Android phones, iPhone SE 2/3, iPhone 12 mini */
+        @media (min-width: 361px) and (max-width: 480px) {
+            :root {
+                --nav-height: 124px;
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 20px);
+            }
+
+            .product-grid {
+                gap: 32px;
+                padding-top: 20px;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .navbar-top-content {
+                padding: 10px 14px;
+            }
+
+            .navbar-top-left .hide-xs {
+                display: none;
+            }
+
+            .navbar-logo img {
+                height: 32px;
+            }
+
+            .navbar-main {
+                padding: 10px 14px;
+            }
+
+            .product-title {
+                font-size: 18px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .company-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* 481px – 599px: Large phones, iPhone Plus landscape */
+        @media (min-width: 481px) and (max-width: 599px) {
+            :root {
+                --nav-height: 105px;
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 15px);
+            }
+
+            .product-grid {
+                padding-top: 15px;
+                gap: 28px;
+            }
+
+            .navbar-logo img {
+                height: 34px;
+            }
+
+            .navbar-main {
+                padding: 11px 18px;
+            }
+
+            .product-title {
+                font-size: 17px;
+            }
+
+            .card-body {
+                padding: 16px;
+            }
+
+            .product-card-img {
+                height: 120px;
+            }
+        }
+
+        /* 600px – 767px: Large phones landscape, small tablets portrait */
+        @media (min-width: 600px) and (max-width: 767px) {
+            :root {
+                --nav-height: 110px;
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 10px);
+            }
+
+            .product-grid {
+                padding-top: 10px;
+            }
+
+            .navbar-logo img {
+                height: 36px;
+            }
+
+            .product-title {
+                font-size: 18px;
+            }
+
+            .card-body {
+                padding: 18px;
+            }
+
+            .product-header-inner {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .product-header-inner>div:first-child {
+                flex: 0 0 48%;
+            }
+
+            .product-header-inner>div:last-child {
+                flex: 1;
+            }
+
+            .product-main-img {
+                aspect-ratio: 1/1;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0 16px;
+            }
+
+            .similar-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .product-card-img {
+                height: 120px;
+            }
+
+            .similar-header h2 {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 17px;
+            }
+        }
+
+        /* ALL mobile/tablet below 1024px: hamburger menu shown */
+        @media (max-width: 1023px) {
+
+            /* nav-actions: show only hamburger + post button, hide login text */
+            #navRight .btn-login {
+                display: none !important;
+            }
+
+            #navRight .btn-account {
+                display: none !important;
+            }
+
+            #navRight .btn-logout {
+                display: none !important;
+            }
+        }
+
+        /* 768px – 1023px: Tablets (iPad portrait, etc.) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            :root {
+                --nav-height: 105px;
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 10px);
+            }
+
+            .product-grid {
+                padding-top: 15px;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+
+            .navbar-logo img {
+                height: 40px;
+            }
+
+            .navbar-main {
+                padding: 13px 24px;
+            }
+
+            .card-body {
+                padding: 24px;
+            }
+
+            .product-title {
+                font-size: 22px;
+            }
+
+            .tab-btn {
+                padding: 14px 18px;
+                font-size: 13px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            /* Product header: side by side */
+            .product-header-inner {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 24px;
+            }
+
+            .product-header-inner>div:first-child {
+                flex: 0 0 45%;
+            }
+
+            .product-header-inner>div:last-child {
+                flex: 1;
+            }
+
+            .product-main-img {
+                aspect-ratio: 1/1;
+            }
+
+            /* 2-col specs */
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0 24px;
+            }
+
+            .spec-label,
+            .spec-value {
+                font-size: 14px;
+            }
+
+            /* 2-col product grid */
+            .product-grid {
+                grid-template-columns: 1fr 300px;
+                gap: 24px;
+                padding: 24px 0 48px;
+            }
+
+            .sidebar-col {
+                position: sticky;
+                top: 108px;
+                align-self: start;
+            }
+
+            /* Similar: 4 col */
+            .similar-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+            }
+
+            .product-card-img {
+                height: 130px;
+            }
+
+            .similar-header h2 {
+                font-size: 22px;
+            }
+
+            /* Footer: 2 cols */
+            .footer-grid {
+                grid-template-columns: 1.2fr 1fr 1fr;
+                gap: 28px;
+            }
+
+            .left-col {
+                gap: 20px;
+            }
+
+            .product-desc {
+                font-size: 14px;
+            }
+
+            .company-profile {
+                font-size: 14px;
+            }
+        }
+
+        /* 1024px+: Desktop */
+        @media (min-width: 1024px) {
+            :root {
+                --nav-height: 102px;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+
+            /* Show desktop horizontal menu */
+            .menu {
+                display: flex;
+            }
+
+            /* Hide mobile menu toggle on desktop */
+            .hamburger {
+                display: none;
+            }
+
+            .mobile-menu-wrap {
+                display: none !important;
+            }
+
+            /* Show desktop auth buttons */
+            #navRight .btn-login {
+                display: inline-block !important;
+            }
+
+            .navbar-logo img {
+                height: 42px;
+            }
+
+            .navbar-main {
+                padding: 14px 24px;
+            }
+
+            .card-body {
+                padding: 28px;
+            }
+
+            .product-title {
+                font-size: 24px;
+            }
+
+            .tab-btn {
+                padding: 15px 22px;
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 19px;
+            }
+
+            /* Side-by-side product header */
+            .product-header-inner {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 28px;
+            }
+
+            .product-header-inner>div:first-child {
+                flex: 0 0 46%;
+            }
+
+            .product-header-inner>div:last-child {
+                flex: 1;
+            }
+
+            .product-main-img {
+                aspect-ratio: 1/1;
+            }
+
+            /* 2-col specs */
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0 32px;
+            }
+
+            .spec-label,
+            .spec-value {
+                font-size: 14px;
+            }
+
+            .product-desc {
+                font-size: 14px;
+            }
+
+            .company-profile {
+                font-size: 14px;
+            }
+
+            /* Product layout: content + sidebar */
+            .product-grid {
+                grid-template-columns: 1fr 360px;
+                gap: 32px;
+                padding: 28px 0 56px;
+            }
+
+            .sidebar-col {
+                position: sticky;
+                top: 116px;
+                align-self: start;
+            }
+
+            /* Similar: 4 cols */
+            .similar-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+
+            .product-card-img {
+                height: 150px;
+            }
+
+            .similar-header h2 {
+                font-size: 26px;
+            }
+
+            .nav-arrow {
+                width: 38px;
+                height: 38px;
+            }
+
+            /* Footer 3 cols */
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+                gap: 32px;
+            }
+
+            .left-col {
+                gap: 22px;
+            }
+
+            /* Seller box: slightly larger */
+            .seller-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 17px;
+            }
+
+            .seller-name {
+                font-size: 16px;
+            }
+
+            .seller-detail-row {
+                font-size: 13px;
+            }
+        }
+
+        /* 1280px+: Large desktop */
+        @media (min-width: 1280px) {
+
+            .container,
+            .navbar-top-content,
+            .footer-container {
+                max-width: 1240px;
+            }
+
+            .container {
+                padding: 0 32px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 380px;
+                gap: 40px;
+            }
+
+            .card-body {
+                padding: 32px;
+            }
+
+            .product-title {
+                font-size: 26px;
+            }
+
+            .product-card-img {
+                height: 160px;
+            }
+
+            .similar-header h2 {
+                font-size: 28px;
+            }
+        }
+
+        /* 1440px+: Extra wide */
+        @media (min-width: 1440px) {
+
+            .container,
+            .navbar-top-content,
+            .footer-container {
+                max-width: 1400px;
+            }
+
+            .container {
+                max-width: 1360px;
+                padding: 0 40px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 400px;
+                gap: 48px;
+            }
+
+            .product-title {
+                font-size: 28px;
+            }
+        }
+
+        /* 1600px+: Ultra Stretch */
+        @media (min-width: 1600px) {
+
+            .container,
+            .navbar-top-content,
+            .footer-container {
+                max-width: 1560px;
+            }
+
+            .container {
+                padding: 0 60px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 420px;
+                gap: 56px;
+            }
+
+            .product-title {
+                font-size: 30px;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 0 40px;
+            }
+
+            .similar-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 20px;
+            }
+        }
+
+        /* 1920px+: Cinematic Viewing */
+        @media (min-width: 1920px) {
+
+            .container,
+            .navbar-top-content,
+            .footer-container {
+                max-width: 1800px;
+            }
+
+            .container {
+                padding: 0 80px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 460px;
+                gap: 64px;
+            }
+
+            .product-header-inner {
+                gap: 48px;
+            }
+
+            .product-header-inner>div:first-child {
+                flex: 0 0 50%;
+            }
+
+            .card-body {
+                padding: 40px;
+            }
+
+            .similar-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 24px;
+            }
+        }
+
+        /* Prevent overflow on any screen */
+        * {
+            max-width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-top">
+            <div class="navbar-top-content">
+                <div class="navbar-top-left">
+                    <span style="color:#22a28a;">📞 Support: +91 98765 43210</span>
+                    <span style="color:#fff;">📍 Pan India Network</span>
+                    <span><a href="About.html" style="color:#fff;">About</a></span>
+                    <span><a href="Contact.html" style="color:#fff;">Contact</a></span>
+                </div>
+                <div class="navbar-top-right">
+                    <a href="register.html" style="color:#fff;">Grow on YouVBiZ</a>
+                </div>
+            </div>
+        </div><br>
+
+        <!-- Desktop navbar main row -->
+        <div class="navbar-main container">
+            <a href="index.html" class="navbar-logo">
+                <img src="Media/Logo.png" alt="YouVBiZ Logo" />
+            </a>
+
+            <!-- Desktop horizontal menu (hidden on mobile, shown via CSS at 1024px+) -->
+            <div class="menu" id="desktopMenu">
+                <a href="index.html">Home</a>
+                <a href="register.html">Manufacturers</a>
+                <a href="register.html">Distributors</a>
+                <a href="register.html">Retailers</a>
+                <a href="careers.html">Job Opening</a>
+                <a href="register.html">Opportunity</a>
+            </div>
+
+            <div class="nav-actions" id="navRight">
+                <button id="loginBtn" class="btn-login" onclick="window.location.href='login.html'">🔐 Login</button>
+
+                <!-- Account Dropdown (desktop) -->
+                <div class="account-dropdown-wrapper" id="accountDropdownWrapper" style="display:none;">
+                    <button id="accountBtn" class="btn-account">👤 Account ▾</button>
+                    <div class="account-dropdown-menu" id="accountDropdownMenu">
+                        <a href="#" id="ddDashboard"><span class="dd-icon">🏠</span> Dashboard</a>
+                        <a href="#" id="ddProfile"><span class="dd-icon">👤</span> Profile</a>
+                    </div>
+                </div>
+
+                <button id="logoutBtn" class="btn-logout" style="display:none;" onclick="handleLogout()">Logout</button>
+                <button class="btn-primary" id="postBtn" onclick="window.location.href='register.html'">Post
+                    Requirement</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
+            </div>
+        </div>
+
+        <!-- Mobile dropdown menu (separate from desktop menu) -->
+        <div class="mobile-menu-wrap" id="mobileMenu">
+            <a href="index.html" onclick="closeMob()">Home</a>
+            <a href="register.html" onclick="closeMob()">Manufacturers</a>
+            <a href="register.html" onclick="closeMob()">Distributors</a>
+            <a href="register.html" onclick="closeMob()">Retailers</a>
+            <a href="careers.html" onclick="closeMob()">Job Opening</a>
+            <a href="register.html" onclick="closeMob()">Opportunity</a>
+            <div id="mobileAuth"></div>
+        </div>
+    </nav>
+
+    <main>
+        <br>
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb-bar">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <a href="#">Building Materials</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <a href="#">Plywood</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span class="crumb-current">18mm Marine Grade Plywood (IS 710)</span>
+                </nav>
+            </div>
+        </div>
+
+        <!-- PRODUCT LAYOUT -->
+        <div class="container">
+            <div class="product-grid">
+
+                <!-- LEFT COLUMN -->
+                <div class="left-col">
+
+                    <!-- Product Header Card -->
+                    <div class="card">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <div class="product-header-inner">
+                                <!-- Gallery -->
+                                <div>
+                                    <div class="product-main-img">
+                                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80"
+                                            alt="18mm Marine Grade Plywood" id="mainImg" loading="eager" />
+                                        <div class="zoom-overlay">
+                                            <i data-lucide="maximize-2" style="width:28px;height:28px;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="thumb-grid">
+                                        <div class="gallery-thumb active"
+                                            data-full="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80">
+                                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=200&q=80"
+                                                alt="View 1" loading="lazy" />
+                                        </div>
+                                        <div class="gallery-thumb"
+                                            data-full="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=800&q=80">
+                                            <img src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=200&q=80"
+                                                alt="View 2" loading="lazy" />
+                                        </div>
+                                        <div class="gallery-thumb"
+                                            data-full="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80">
+                                            <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=200&q=80"
+                                                alt="View 3" loading="lazy" />
+                                        </div>
+                                        <div class="thumb-more">+3</div>
+                                    </div>
+                                </div>
+
+                                <!-- Product Info -->
+                                <div>
+                                    <h1 class="product-title">18mm Marine Grade Plywood (IS 710) – Waterproof, Hardwood
+                                        Core</h1>
+                                    <div class="product-badges">
+                                        <span class="badge-stock">
+                                            <i data-lucide="check-circle" style="width:13px;height:13px;"></i>
+                                            In Stock
+                                        </span>
+                                        <span class="badge-model">Model: MP-710-18</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="btn-enquiry">
+                                            <i data-lucide="mail" style="width:16px;height:16px;"></i>
+                                            Send Enquiry
+                                        </button>
+                                        <button class="btn-chat">
+                                            <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
+                                            Chat with Seller
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specs / Tabs Card -->
+                    <div class="card">
+                        <div class="tabs-bar" role="tablist">
+                            <button class="tab-btn active" data-panel="panel-specs">Specifications</button>
+                            <button class="tab-btn" data-panel="panel-company">Company Profile</button>
+                            <button class="tab-btn" data-panel="panel-reviews">Ratings & Reviews</button>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- SPECS -->
+                            <div id="panel-specs" class="tab-panel active">
+                                <h3 class="section-title">Technical Specifications</h3>
+                                <div class="specs-grid">
+                                    <div class="spec-row"><span class="spec-label">Material</span><span
+                                            class="spec-value">Hardwood (Gurjan Face)</span></div>
+                                    <div class="spec-row"><span class="spec-label">Thickness</span><span
+                                            class="spec-value">18 mm</span></div>
+                                    <div class="spec-row"><span class="spec-label">Grade</span><span
+                                            class="spec-value">IS 710 (Marine Grade)</span></div>
+                                    <div class="spec-row"><span class="spec-label">Glue Used</span><span
+                                            class="spec-value">Phenol Formaldehyde</span></div>
+                                    <div class="spec-row"><span class="spec-label">Core Material</span><span
+                                            class="spec-value">Eucalyptus / Poplar</span></div>
+                                    <div class="spec-row"><span class="spec-label">Density</span><span
+                                            class="spec-value">750 kg/m³</span></div>
+                                    <div class="spec-row"><span class="spec-label">Size</span><span
+                                            class="spec-value">8ft x 4ft (2440 x 1220 mm)</span></div>
+                                    <div class="spec-row"><span class="spec-label">Warranty</span><span
+                                            class="spec-value">20 Years</span></div>
+                                </div>
+
+                                <h3 class="section-title">Product Description</h3>
+                                <div class="product-desc">
+                                    <p>Our 18mm Marine Grade Plywood is manufactured using high-quality hardwood timber
+                                        bonded with BWP grade synthetic resin, with special preservation treatment for
+                                        borer and termite resistance.</p>
+                                    <p>Ideal for kitchens, bathrooms, and high-humidity areas. Calibrated for uniform
+                                        thickness with a smooth finish for laminating or painting.</p>
+                                    <ul>
+                                        <li>Boiling Water Proof (BWP) certified</li>
+                                        <li>Termite and Borer resistant</li>
+                                        <li>High nail holding strength</li>
+                                        <li>Zero gap and overlap</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- COMPANY -->
+                            <div id="panel-company" class="tab-panel">
+                                <h3 class="section-title">About Maharaja Timbers Pvt Ltd</h3>
+                                <div class="company-profile">
+                                    <p>Established in 2001, Maharaja Timbers Pvt Ltd is one of India's leading
+                                        manufacturers and exporters of premium plywood. Based in Yamuna Nagar, Haryana —
+                                        serving customers across 20+ states.</p>
+                                    <p>With state-of-the-art facilities we produce over 2 lakh panels per month, meeting
+                                        IS 710, IS 303, and IS 1659 standards.</p>
+                                    <div class="company-stats">
+                                        <div class="stat-box">
+                                            <div class="stat-num">20+</div>
+                                            <div class="stat-lbl">Years Experience</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-num">500+</div>
+                                            <div class="stat-lbl">Products</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-num">12K+</div>
+                                            <div class="stat-lbl">Happy Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- REVIEWS -->
+                            <div id="panel-reviews" class="tab-panel">
+                                <div class="reviews-summary">
+                                    <div class="rating-big">4.8</div>
+                                    <div>
+                                        <div class="stars">★★★★★</div>
+                                        <div style="color:#fff;font-weight:700;font-size:13px;">Excellent</div>
+                                        <div class="rating-count">Based on 127 reviews</div>
+                                    </div>
+                                </div>
+                                <div class="review-card">
+                                    <div class="review-header"><span class="review-name">Ramesh K.</span><span
+                                            class="review-stars">★★★★★</span></div>
+                                    <p class="review-text">Excellent quality plywood. Used in kitchen renovation — no
+                                        warping after 8 months. Highly recommend Maharaja Timbers.</p>
+                                </div>
+                                <div class="review-card">
+                                    <div class="review-header"><span class="review-name">Priya Sharma</span><span
+                                            class="review-stars">★★★★☆</span></div>
+                                    <p class="review-text">Very good product, consistent thickness and smooth surface.
+                                        Delivery slightly delayed but quality makes up for it.</p>
+                                </div>
+                                <div class="review-card">
+                                    <div class="review-header"><span class="review-name">Suresh Contractors</span><span
+                                            class="review-stars">★★★★★</span></div>
+                                    <p class="review-text">Buying from them for 3 years for commercial projects. BWP
+                                        certification is genuine and holds up great in humid conditions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIDEBAR -->
+                <div class="sidebar-col">
+                    <!-- Seller Card -->
+                    <div class="card">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <p class="seller-label">Sold By</p>
+                            <div class="seller-info">
+                                <div class="seller-avatar">MT</div>
+                                <div>
+                                    <div class="seller-name">Maharaja Timbers Pvt Ltd</div>
+                                    <div class="seller-tags">
+                                        <span class="tag-verified"><i data-lucide="shield-check"
+                                                style="width:10px;height:10px;"></i> Verified</span>
+                                        <span class="tag-years">4 Yrs on YouVBiZ</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="seller-details">
+                                <div class="seller-detail-row">
+                                    <i data-lucide="map-pin" style="width:14px;height:14px;"></i>
+                                    <span>Yamuna Nagar, Haryana</span>
+                                </div>
+                                <div class="seller-detail-row">
+                                    <i data-lucide="award" style="width:14px;height:14px;"></i>
+                                    <span>Top Rated Supplier (4.8/5)</span>
+                                </div>
+                                <div class="seller-detail-row">
+                                    <i data-lucide="briefcase" style="width:14px;height:14px;"></i>
+                                    <span>Manufacturer, Exporter</span>
+                                </div>
+                            </div>
+
+                            <div class="seller-btn-grid">
+                                <button class="btn-seller-sec">
+                                    <i data-lucide="phone" style="width:14px;height:14px;"></i>
+                                    View Number
+                                </button>
+                                <button class="btn-seller-sec">
+                                    <i data-lucide="store" style="width:14px;height:14px;"></i>
+                                    Visit Store
+                                </button>
+                            </div>
+
+                            <button class="btn-contact-supplier">Contact Supplier</button>
+                        </div>
+                    </div>
+
+                    <!-- Trust Card -->
+                    <div class="trust-card">
+                        <p class="trust-title">Why buy from this seller?</p>
+                        <div class="trust-list">
+                            <div class="trust-item"><i data-lucide="check" style="width:14px;height:14px;"></i><span>GST
+                                    Verified Business</span></div>
+                            <div class="trust-item"><i data-lucide="check"
+                                    style="width:14px;height:14px;"></i><span>Fast Response Time (&lt; 2 Hrs)</span>
+                            </div>
+                            <div class="trust-item"><i data-lucide="check"
+                                    style="width:14px;height:14px;"></i><span>Quality Tested Products</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /product-grid -->
+
+            <!-- SIMILAR PRODUCTS -->
+            <div class="similar-section">
+                <div class="similar-header">
+                    <h2>Similar Products</h2>
+                    <div class="nav-arrows">
+                        <button class="nav-arrow" aria-label="Previous"><i data-lucide="chevron-left"
+                                style="width:15px;height:15px;"></i></button>
+                        <button class="nav-arrow" aria-label="Next"><i data-lucide="chevron-right"
+                                style="width:15px;height:15px;"></i></button>
+                    </div>
+                </div>
+                <div class="similar-grid">
+                    <div class="product-card">
+                        <div class="product-card-img"><img
+                                src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=400&q=80"
+                                alt="12mm MR Grade Plywood" loading="lazy" /></div>
+                        <div class="product-card-body">
+                            <div class="product-card-title">12mm MR Grade Plywood</div>
+                            <div class="product-card-seller">Maharaja Timbers</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card-img"><img
+                                src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=400&q=80"
+                                alt="Waterproof Shuttering Ply" loading="lazy" /></div>
+                        <div class="product-card-body">
+                            <div class="product-card-title">Waterproof Shuttering Ply</div>
+                            <div class="product-card-seller">BuildWell Const.</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card-img"><img
+                                src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=400&q=80"
+                                alt="18mm Calibrated Ply" loading="lazy" /></div>
+                        <div class="product-card-body">
+                            <div class="product-card-title">18mm Calibrated Ply</div>
+                            <div class="product-card-seller">Om Sai Woods</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card-img"><img
+                                src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=400&q=80"
+                                alt="Teak Face Veneer" loading="lazy" /></div>
+                        <div class="product-card-body">
+                            <div class="product-card-title">Teak Face Veneer</div>
+                            <div class="product-card-seller">Royal Woods</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /container -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <img src="Media/Logo.png" alt="YouVBiZ Logo" />
+                    <p>B2B Marketplace connecting manufacturers, distributors, and retailers across India.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Twitter">𝕏</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About Us</a></li>
+                        <li><a href="Blog.html">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210">📞 +91 98765 43210</a></li>
+                        <li><a href="mailto:support@youvbiz.com">support@youvbiz.com</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 YouVBiZ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // ============ MOBILE MENU ============
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        function openMob() {
+            mobileMenu.classList.add("show");
+            hamburger.textContent = "✕";
+            hamburger.setAttribute("aria-expanded", "true");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeMob() {
+            mobileMenu.classList.remove("show");
+            hamburger.textContent = "☰";
+            hamburger.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+        }
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.contains("show") ? closeMob() : openMob();
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains("show")) {
+                closeMob();
+            }
+        });
+
+        // Close mobile menu on resize to desktop
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 1024) closeMob();
+        });
+
+        // ============ AUTH SYSTEM ============
+        const role = localStorage.getItem("role");
+        const loginBtn = document.getElementById("loginBtn");
+        const accountBtn = document.getElementById("accountBtn");
+        const accountDropdownWrapper = document.getElementById("accountDropdownWrapper");
+        const accountDropdownMenu = document.getElementById("accountDropdownMenu");
+        const ddDashboard = document.getElementById("ddDashboard");
+        const ddProfile = document.getElementById("ddProfile");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const mobileAuth = document.getElementById("mobileAuth");
+
+        function handleLogout() {
+            localStorage.removeItem("role");
+            window.location.href = "index.html";
+        }
+
+        function getAccountLinks() {
+            if (role === "manufacturer") return { dash: "manufacturer-dashboard.html", prof: "manufacturer_detail.html" };
+            if (role === "distributor") return { dash: "distributor-dashboard.html", prof: "distributor_detail.html" };
+            if (role === "retailer") return { dash: "retailer-dashboard.html", prof: "retailer_detail.html" };
+            return { dash: "login.html", prof: "login.html" };
+        }
+
+        function buildMobileAuth() {
+            mobileAuth.innerHTML = "";
+            if (role) {
+                const links = getAccountLinks();
+                const ml = document.createElement("div");
+                ml.className = "mobile-account-links";
+                ml.innerHTML = '<a href="' + links.dash + '"><span class="dd-icon">🏠</span> Dashboard</a><a href="' + links.prof + '"><span class="dd-icon">👤</span> Profile</a>';
+                mobileAuth.appendChild(ml);
+
+                const lgBtn = document.createElement("button");
+                lgBtn.className = "btn-logout-mob";
+                lgBtn.textContent = "Logout";
+                lgBtn.onclick = handleLogout;
+                mobileAuth.appendChild(lgBtn);
+            } else {
+                const liBtn = document.createElement("button");
+                liBtn.className = "btn-login-mob";
+                liBtn.textContent = "🔐 Login";
+                liBtn.onclick = () => window.location.href = "login.html";
+                const prBtn = document.createElement("button");
+                prBtn.className = "btn-primary-mob";
+                prBtn.textContent = "Post Requirement";
+                prBtn.onclick = () => window.location.href = "register.html";
+                mobileAuth.appendChild(liBtn);
+                mobileAuth.appendChild(prBtn);
+            }
+        }
+
+        if (role) {
+            const links = getAccountLinks();
+            if (loginBtn) loginBtn.style.display = "none";
+            if (accountDropdownWrapper) accountDropdownWrapper.style.display = "inline-block";
+            if (logoutBtn) logoutBtn.style.display = "inline-block";
+            if (ddDashboard) ddDashboard.href = links.dash;
+            if (ddProfile) ddProfile.href = links.prof;
+        } else {
+            if (loginBtn) loginBtn.style.display = "inline-block";
+            if (accountDropdownWrapper) accountDropdownWrapper.style.display = "none";
+            if (logoutBtn) logoutBtn.style.display = "none";
+        }
+
+        if (accountBtn) {
+            accountBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                accountDropdownMenu.classList.toggle("open");
+            });
+        }
+
+        document.addEventListener("click", (e) => {
+            if (accountDropdownWrapper && !accountDropdownWrapper.contains(e.target)) {
+                if (accountDropdownMenu) accountDropdownMenu.classList.remove("open");
+            }
+        });
+
+        buildMobileAuth();
+
+        // ============ GALLERY ============
+        document.querySelectorAll(".gallery-thumb").forEach(thumb => {
+            thumb.addEventListener("click", () => {
+                document.querySelectorAll(".gallery-thumb").forEach(t => t.classList.remove("active"));
+                thumb.classList.add("active");
+                const full = thumb.getAttribute("data-full");
+                if (full) document.getElementById("mainImg").src = full;
+            });
+        });
+
+        // ============ TABS ============
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.getAttribute("data-panel")).classList.add("active");
+            });
+        });
+    </script>
+</body>
+
+</html>
