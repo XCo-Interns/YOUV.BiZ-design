@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Jobs - YouVBiZ
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --accent-bg: #0f172a;
+            --text-main: #3c4257;
+            --sidebar-gradient: linear-gradient(45deg,#1a7161 0%,#0a2540 100%);
+            --body-bg: #0a2540;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 { font-family: 'Barlow', sans-serif; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-gradient);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .logo {
+            padding: 30px 24px;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--white);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .sidebar nav {
+            padding: 20px 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            margin: 4px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .sidebar a.active {
+            background: var(--secondary-color);
+            box-shadow: 0 4px 15px rgba(34, 162, 138, 0.3);
+        }
+
+        .sidebar a .icon {
+            font-size: 18px;
+            margin-right: 12px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #0a2540; padding: 0 40px; height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #fff;
+        }
+
+        .notification-btn:hover {
+            background: #eef2f7;
+            transform: translateY(-1px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: 2px solid var(--white);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-profile:hover {
+            background: #eef2f7;
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #697386;
+        }
+
+        .content {
+            padding: 30px 40px;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th {
+            background: #f8fbff;
+            padding: 14px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 2px solid #eef2f7;
+            font-size: 13px;
+        }
+
+        .table td {
+            padding: 14px;
+            border-bottom: 1px solid #f2f2f2;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        .table tr:hover {
+            background: #fafbfc;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(34, 162, 138, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(34, 162, 138, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #eef2f7;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background: #e6fffa;
+            color: #00bfa5;
+        }
+
+        .badge-warning {
+            background: #fff9e6;
+            color: #ffb000;
+        }
+
+        .badge-info {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+
+        @media (max-width: 968px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 0 20px;
+            }
+
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        .hamburger {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .footer {
+            padding: 24px;
+            text-align: center;
+            color: #8792a2;
+            font-size: 12px;
+            margin-top: auto;
+            border-top: 1px solid #f2f2f2;
+        }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" style="padding: 10px; display: flex; justify-content: center; align-items: center;">
+                <img src="Media/Logo.png" alt="YouVBiZ" style="max-height: 60px; max-width: 100%;">
+            </div>
+            <nav>
+                <a href="retailer-dashboard.html">
+                    <span class="icon"><i data-lucide="layout-dashboard" style="width:18px;height:18px;"></i></span>
+                    Dashboard
+                </a>
+                <a href="retailer-profile.html">
+                    <span class="icon"><i data-lucide="user" style="width:18px;height:18px;"></i></span>
+                    My Profile
+                </a>
+                <a href="retailer-products.html">
+                    <span class="icon"><i data-lucide="package" style="width:18px;height:18px;"></i></span>
+                    Products
+                </a>
+                <a href="retailer-enquiries.html">
+                    <span class="icon"><i data-lucide="message-square" style="width:18px;height:18px;"></i></span>
+                    Enquiries
+                </a>
+                <a href="retailer-transactions.html">
+                    <span class="icon"><i data-lucide="credit-card" style="width:18px;height:18px;"></i></span>
+                    Transactions
+                </a>
+                <a class="active" href="retailer-jobs.html">
+                    <span class="icon"><i data-lucide="briefcase" style="width:18px;height:18px;"></i></span>
+                    Jobs
+                </a>
+                <a href="retailer-settings.html">
+                    <span class="icon"><i data-lucide="settings" style="width:18px;height:18px;"></i></span>
+                    Settings
+                </a>
+            </nav>
+        </div>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+        <div class="main">
+            <div class="header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="toggleSidebar()">
+                        <i data-lucide="menu" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                    </button>
+                    <h1>
+                        Jobs
+                    </h1>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="showNotifications()">
+                        <i data-lucide="bell" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                        <span class="notification-badge">
+                            5
+                        </span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            SG
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">
+                                Suresh Gupta
+                            </div>
+                            <div class="user-role">
+                                Retailer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="card">
+                    <h3>
+                        <i data-lucide="briefcase" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Job Applications
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Job Title
+                                </th>
+                                <th>
+                                    Company
+                                </th>
+                                <th>
+                                    Location
+                                </th>
+                                <th>
+                                    Applied Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Store Manager
+                                </td>
+                                <td>
+                                    BigMart Retail
+                                </td>
+                                <td>
+                                    Delhi
+                                </td>
+                                <td>
+                                    2024-01-28
+                                </td>
+                                <td>
+                                    <span class="badge badge-info">
+                                        Under Review
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sales Executive
+                                </td>
+                                <td>
+                                    Premium Stores
+                                </td>
+                                <td>
+                                    Gurgaon
+                                </td>
+                                <td>
+                                    2024-01-22
+                                </td>
+                                <td>
+                                    <span class="badge badge-warning">
+                                        Pending
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Inventory Manager
+                                </td>
+                                <td>
+                                    SuperStore Chain
+                                </td>
+                                <td>
+                                    Noida
+                                </td>
+                                <td>
+                                    2024-01-18
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        Shortlisted
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="footer">
+                © 2024 YouVBiZ. All rights reserved.
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+    </script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
+
+

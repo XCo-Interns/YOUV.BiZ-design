@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Business Network - YouVBiZ
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            --primary-color: #0a2540;
+            --secondary-color: #22a28a;
+            --accent-bg: #39c08c;
+            --text-main: #3c4257;
+            --sidebar-gradient: linear-gradient(45deg,#1a7161 0%,#0a2540 100%);
+            --body-bg: #0a2540;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 { font-family: 'Barlow', sans-serif; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-gradient);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .logo {
+            padding: 30px 24px;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--white);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .sidebar nav {
+            padding: 20px 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            margin: 4px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .sidebar a.active {
+            background: var(--secondary-color);
+            box-shadow: 0 4px 15px rgba(34, 162, 138, 0.3);
+        }
+
+        .sidebar a .icon {
+            font-size: 18px;
+            margin-right: 12px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #0a2540; padding: 0 40px; height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #fff;
+        }
+
+        .notification-btn:hover {
+            background: #eef2f7;
+            transform: translateY(-1px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: 2px solid var(--white);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-profile:hover {
+            background: #eef2f7;
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #697386;
+        }
+
+        .content {
+            padding: 30px 40px;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .network-item {
+            border: 1px solid #eef2f7;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            background: #fafbfc;
+        }
+
+        .network-item:hover {
+            border-color: var(--secondary-color);
+            background: var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .network-item h4 {
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .network-item p {
+            color: #697386;
+            font-size: 13px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(34, 162, 138, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(34, 162, 138, 0.3);
+        }
+
+        .btn-danger {
+            background: #fff5f5;
+            color: #ff4d4d;
+        }
+
+        .btn-danger:hover {
+            background: #ffeded;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 968px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 0 20px;
+            }
+        }
+
+        .hamburger {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .footer {
+            padding: 24px;
+            text-align: center;
+            color: #8792a2;
+            font-size: 12px;
+            margin-top: auto;
+            border-top: 1px solid #f2f2f2;
+        }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo" style="padding: 10px; display: flex; justify-content: center; align-items: center;">
+                <img src="Media/Logo.png" alt="YouVBiZ" style="max-height: 60px; max-width: 100%;">
+            </div>
+            <nav>
+                <a href="distributor-dashboard.html">
+                    <span class="icon"><i data-lucide="layout-dashboard" style="width:18px;height:18px;"></i></span>
+                    Dashboard
+                </a>
+                <a href="distributor-profile.html">
+                    <span class="icon"><i data-lucide="user" style="width:18px;height:18px;"></i></span>
+                    My Profile
+                </a>
+                <a href="distributor-products.html">
+                    <span class="icon"><i data-lucide="package" style="width:18px;height:18px;"></i></span>
+                    Products Portfolio
+                </a>
+                <a class="active" href="distributor-network.html">
+                    <span class="icon">
+                        🌐
+                    </span>
+                    Business Network
+                </a>
+                <a href="distributor-enquiries.html">
+                    <span class="icon"><i data-lucide="message-square" style="width:18px;height:18px;"></i></span>
+                    Enquiries
+                </a>
+                <a href="distributor-transactions.html">
+                    <span class="icon"><i data-lucide="credit-card" style="width:18px;height:18px;"></i></span>
+                    Transactions
+                </a>
+                <a href="distributor-jobs.html">
+                    <span class="icon"><i data-lucide="briefcase" style="width:18px;height:18px;"></i></span>
+                    Jobs
+                </a>
+                <a href="distributor-settings.html">
+                    <span class="icon"><i data-lucide="settings" style="width:18px;height:18px;"></i></span>
+                    Settings
+                </a>
+            </nav>
+        </div>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+        <div class="main">
+            <div class="header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="toggleSidebar()">
+                        <i data-lucide="menu" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                    </button>
+                    <h1>
+                        Business Network
+                    </h1>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="showNotifications()">
+                        <i data-lucide="bell" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i>
+                        <span class="notification-badge">
+                            2
+                        </span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            AS
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">
+                                Amit Sharma
+                            </div>
+                            <div class="user-role">
+                                Distributor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="card">
+                    <h3>
+                        🌐 Business Network Area
+                    </h3>
+                    <button class="btn btn-primary" onclick="alert('Add Coverage Area')">
+                        <i data-lucide="plus-circle" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"></i> Add Coverage Area
+                    </button>
+                    <div style="margin-top:24px">
+                        <h4 style="margin-bottom:16px">
+                            Current Coverage Areas
+                        </h4>
+                        <div style="display:grid;gap:16px">
+                            <div
+                                style="border:2px solid #e9ecef;border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center">
+                                <div>
+                                    <h4>
+                                        Delhi NCR
+                                    </h4>
+                                    <p style="color:#7f8c8d;font-size:14px">
+                                        45 Active Retailers
+                                    </p>
+                                </div>
+                                <button class="btn btn-danger btn-sm">
+                                    Remove
+                                </button>
+                            </div>
+                            <div
+                                style="border:2px solid #e9ecef;border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center">
+                                <div>
+                                    <h4>
+                                        Punjab
+                                    </h4>
+                                    <p style="color:#7f8c8d;font-size:14px">
+                                        28 Active Retailers
+                                    </p>
+                                </div>
+                                <button class="btn btn-danger btn-sm">
+                                    Remove
+                                </button>
+                            </div>
+                            <div
+                                style="border:2px solid #e9ecef;border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center">
+                                <div>
+                                    <h4>
+                                        Haryana
+                                    </h4>
+                                    <p style="color:#7f8c8d;font-size:14px">
+                                        32 Active Retailers
+                                    </p>
+                                </div>
+                                <button class="btn btn-danger btn-sm">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                © 2024 YouVBiZ. All rights reserved.
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+    </script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
+
+
